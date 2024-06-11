@@ -70,7 +70,7 @@
             "avatar": "http://dummyimage.com/177x100.png/cc0000/ffffff"
         }
     ],
-    "categorys": [
+    "categories": [
         { "id": 1, "type": 1, "typename": "월급" },
         { "id": 2, "type": 1, "typename": "부수입" },
         { "id": 3, "type": 1, "typename": "용돈" },

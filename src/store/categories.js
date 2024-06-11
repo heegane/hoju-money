@@ -2,13 +2,13 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-export const useCategorysStore = defineStore('categorys', {
+export const useCategoriesStore = defineStore('categories', {
     state: () => ({
         categoryList: []
     }),
     actions: {
         getCategoryList() {
-            axios.get('http://localhost:3001/categorys')
+            axios.get('http://localhost:3001/categories')
                 .then((res) => {
                     // 성공 핸들링
                     console.log(this.categoryList)
@@ -23,7 +23,7 @@ export const useCategorysStore = defineStore('categorys', {
                 });
         },
         getIncomeCategoryList() {
-            axios.get('http://localhost:3001/categorys?type=1')
+            axios.get('http://localhost:3001/categories?type=1')
                 .then((res) => {
                     // 성공 핸들링
                     console.log(res.data);
@@ -38,7 +38,7 @@ export const useCategorysStore = defineStore('categorys', {
                 });
         },
         getOutcomeCategoryList() {
-            axios.get('http://localhost:3001/categorys?type=2')
+            axios.get('http://localhost:3001/categories?type=2')
                 .then((res) => {
                     // 성공 핸들링
                     console.log(res.data);

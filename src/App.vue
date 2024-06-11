@@ -18,13 +18,20 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </header>
 
-  <RouterView />
+  <div class="viewbox">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+  
+}
+
+.viewbox {
+  background-color: #E5E6ED;
 }
 
 .logo {

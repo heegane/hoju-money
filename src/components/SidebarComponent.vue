@@ -38,16 +38,15 @@
                 </ul>
                 <hr>
                 <div class="pb-4">
-                    <RouterLink to="/user/detail" class="d-flex align-items-center text-black text-decoration-none">
+                    <div class="d-flex align-items-center text-black text-decoration-none">
                         <div>
-                            <img :src="userInfo.avatar" alt="profileImage" width="30" height="30" class="rounded">
+                            <img :src="userInfo.avatar" alt="profileImage" width="30" height="30" class="rounded" @click="openUserProfile">
                         </div>
                         <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
                         <span>
                             <RouterLink to="/user/setting" class="d-flex text-black text-decoration-none mx-3">설정</RouterLink>
                         </span>
-                    </RouterLink>
-                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,15 +54,27 @@
             <RouterView />
         </div>
     </div>
+    <UserDetailView :isVisible="openModal" @close="closeModal" />
 </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useUserInfoStore } from '@/stores/user';
+import UserDetailView from '@/views/user/UserDetailView.vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
+
+const openModal = ref(false);
+
+const openUserProfile = () => {
+  openModal.value = true;
+};
+
+const closeModal = () => {
+  openModal.value = false;
+};
 </script>
 
 <style scoped>

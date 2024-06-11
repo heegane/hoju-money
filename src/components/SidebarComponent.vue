@@ -40,9 +40,9 @@
                 <div class="pb-4">
                     <RouterLink to="/user/detail" class="d-flex align-items-center text-black text-decoration-none">
                         <div>
-                            <img src="https://github.com/mdo.png" alt="profileImage" width="30" height="30" class="rounded">
+                            <img :src="userInfo.avatar" alt="profileImage" width="30" height="30" class="rounded">
                         </div>
-                        <span class="d-none d-sm-inline mx-1">닉네임</span>
+                        <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
                         <span>
                             <RouterLink to="/user/setting" class="d-flex text-black text-decoration-none mx-3">설정</RouterLink>
                         </span>
@@ -58,8 +58,12 @@
 </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
+import { useUserInfoStore } from '@/stores/user';
 
+const userInfoStore = useUserInfoStore();
+const userInfo = userInfoStore.userInfo;
 </script>
 
 <style scoped>

@@ -26,6 +26,7 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+
 const router = useRouter();
 
 const userInfo = reactive({ email: "", password: "" });
@@ -35,7 +36,7 @@ const btnLogin = () => {
     sessionStorage.setItem("email", "");
     sessionStorage.setItem("password", "");
 
-    let user = userList.value.find((u) => u.email == userInfo.email);
+    const user = userList.value.find((u) => u.email == userInfo.email);
 
     if (userInfo.email == "") {
         alert("아이디를 입력해주세요.");

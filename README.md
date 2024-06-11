@@ -56,9 +56,10 @@
 - `axios`
 - `pinia`
 - `bootstrap`
-- `vue3-datepickerr`
+- `vue3-datepicker`
 - `vue3-charts`
 - `date-fns`
+- `json-server`
 
 ### 프로젝트 실행 방법
 ```
@@ -66,6 +67,12 @@ git clone https://github.com/imdayoung/hoju-money
 cd hoju-money
 npm install
 npm run dev
+```
+
+### json server 실행 방법
+```
+cd src/server
+json-server --watch MOCK_DATA.json --port 3001
 ```
 
 ## 📜 협업 방식

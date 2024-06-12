@@ -20,7 +20,9 @@
                 <RouterLink
                   to="/home"
                   class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black fw-bold"
-                  >Home</RouterLink
+                  >
+                  <font-awesome-icon icon="fa-solid fa-house" /> Home
+                </RouterLink
                 >
               </div>
             </li>
@@ -37,15 +39,17 @@
                   <RouterLink
                     to="/come/income"
                     class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black"
-                    >수입 내역</RouterLink
-                  >
+                    >
+                    <font-awesome-icon icon="fa-solid fa-list" /> 수입 내역
+                  </RouterLink>
                 </li>
                 <li class="mt-2 w-100">
                   <RouterLink
                     to="/come/outcome"
                     class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black"
-                    >지출 내역</RouterLink
-                  >
+                    >
+                    <font-awesome-icon icon="fa-solid fa-list" /> 지출 내역
+                  </RouterLink>
                 </li>
               </ul>
             </li>
@@ -62,15 +66,17 @@
                   <RouterLink
                     to="/chart/category"
                     class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black"
-                    >카테고리별 그래프</RouterLink
-                  >
+                    >
+                    <font-awesome-icon icon="fa-solid fa-list" /> 카테고리별 그래프
+                  </RouterLink>
                 </li>
                 <li class="mt-2 w-100">
                   <RouterLink
                     to="/chart/comes"
                     class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black"
-                    >수입/지출 그래프</RouterLink
-                  >
+                    >
+                    <font-awesome-icon icon="fa-solid fa-list" /> 수입/지출 그래프
+                  </RouterLink>
                 </li>
               </ul>
             </li>
@@ -87,8 +93,8 @@
                 <img
                   :src="userInfo.avatar"
                   alt="profileImage"
-                  width="30"
-                  height="30"
+                  width="40"
+                  height="40"
                   class="rounded"
                 />
                 <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
@@ -97,8 +103,9 @@
                 <RouterLink
                   to="/user/setting"
                   class="d-flex text-black text-decoration-none mx-3"
-                  >설정</RouterLink
-                >
+                  >
+                  <font-awesome-icon icon="fa-solid fa-gear" />
+                </RouterLink>
               </span>
             </div>
           </div>
@@ -132,6 +139,17 @@ const closeModal = () => {
 </script>
 
 <style scoped>
+div {
+  font-family: 'Pretendard-Regular', cursive;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 .bg-nav {
   background-color: #f5ceb4;
 }

@@ -1,20 +1,20 @@
 <template>
   <div>
     <form>
-      <div class="form-group">
+      <div class="form-group my-2">
         <label for="exampleInputEmail1">이름</label>
         <input type="text" id="newName" class="form-control" :placeholder="userInfo.name" v-model="newName">
       </div>
-      <div class="form-group">
+      <div class="form-group my-2">
         <label for="exampleInputPassword1">이메일</label>
         <input type="password" class="form-control" :placeholder="userInfo.email" readonly>
       </div>
-      <div class="form-group">
+      <div class="form-group my-2">
         <label for="exampleInputPassword1">총 자산</label>
         <input type="password" class="form-control" :placeholder="`${totalMoney.toLocaleString()}원`" readonly>
       </div>
-      <div class="text-center">
-        <button type="button" class="btn btn-primary" @click="switchToReadMode">저장하기</button>
+      <div class="mt-3 text-end">
+        <button type="button" class="btn btn-brown" @click="switchToReadMode">저장</button>
       </div>
     </form>
   </div>
@@ -62,5 +62,9 @@ const switchToReadMode = () => {
   width: 40%;
   border-radius: 8px;
   text-align: center;
+}
+.btn-brown {
+  background-color: #4D2A30;
+  color: white;
 }
 </style>

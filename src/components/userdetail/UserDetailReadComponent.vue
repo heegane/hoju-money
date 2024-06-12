@@ -1,31 +1,18 @@
 <template>
   <div class="text-center">
-    <div>
-    <span>{{ userInfo.name }}</span>
+    <div class="my-2">
+      <span class="fs-4">{{ userInfo.name }}</span>
+    </div>
+    <div class="my-2">
+      <span>{{ userInfo.email }}</span>
+    </div>
+    <div class="my-2">
+      <span>총자산: {{ totalMoney.toLocaleString() }}원</span>
+    </div>
+    <div class="my-2 text-end">
+      <button type="button" class="btn btn-brown" @click="switchToUpdateMode">수정</button>
+    </div>
   </div>
-  <div>
-    <span>{{ userInfo.email }}</span>
-  </div>
-  <div>
-    <span>총자산: {{ totalMoney.toLocaleString() }}원</span>
-    
-  </div>
-  <div>
-    <button type="button" class="btn btn-primary" @click="switchToUpdateMode">
-      수정
-    </button>
-  </div>
-  <div>
-    <button type="button" class="btn mx-0 px-0" @click="btnLogout">
-      <font-awesome-icon icon="fa-solid fa-user-secret"/>
-      <!-- <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
-      <font-awesome-icon :icon="['fas', 'right-from-bracket']" /> -->
-      로그아웃
-    </button>
-  </div>
-  </div>
-  
-
 </template>
 
 <script setup>
@@ -34,7 +21,6 @@ import { useRouter } from 'vue-router';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
-const logout = userInfoStore.logout;
 
 const router = useRouter();
 
@@ -43,17 +29,7 @@ const props = defineProps({
   totalMoney: Number
 });
 
-const emit = defineEmits(['close', 'updateMode']);
-
-const closeModal = () => {
-  emit('close');
-};
-
-const btnLogout = () => {
-  closeModal();
-  router.push({path: '/login'});
-  logout();
-};
+const emit = defineEmits(['updateMode']);
 
 const switchToUpdateMode = () => {
   emit('updateMode', false);
@@ -85,5 +61,9 @@ const switchToUpdateMode = () => {
 }
 .btn-logout {
   background-color: darkgray;
+}
+.btn-brown {
+  background-color: #4D2A30;
+  color:azure
 }
 </style>

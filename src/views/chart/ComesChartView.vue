@@ -1,10 +1,10 @@
 <template>
-    <div class="background-color">
-        <div class="report-header">
+    <div class="report-container">
+        <div>
             <h3 style="color: #2B8EC8;">수입/지출 리포트</h3>
             <h5>{{ currentYear }}년 {{ currentMonth }}월 </h5>
         </div>
-        <div class="line-chart-container">
+        <div class="chart-container">
             <canvas ref="lineChart"></canvas>
         </div>
     </div>
@@ -115,17 +115,15 @@ export default {
 </script>
 
 <style scoped>
-.background-color {
-    background-color: #E5E6ED; /* 배경색 지정 */
+.report-container {
+    margin: 20px; /* 전체 컨테이너에 마진 적용 */
 }
-.report-header {
-    margin-left: 30px; /* 왼쪽 마진 추가 */
-}
-.line-chart-container {
+
+.chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh; /* 전체 화면의 75% */
-    margin: 20px auto; /* 수평 중앙 정렬 및 위아래 마진 추가 */
+    height: 65vh; /* 전체 화면의 65% */
+    margin: 10px auto; /* 수평 중앙 정렬 및 위아래 마진 추가 */
 }
 </style>

@@ -17,7 +17,7 @@
         </div>
         <div>
           <button type="button" @click="closeModal">닫기</button>
-          <button type="button">로그아웃</button>
+          <button type="button" @click="btnLogout">로그아웃</button>
         </div>
       </div>
     </div>
@@ -25,9 +25,14 @@
   
   <script setup>
   import { useUserInfoStore } from '@/stores/user';
+  import { useRouter } from 'vue-router';
+
   const userInfoStore = useUserInfoStore();
   const userInfo = userInfoStore.userInfo;
-  
+  const logout = userInfoStore.logout;
+
+  const router = useRouter();
+
   const props = defineProps({
     isVisible: Boolean,
   });
@@ -36,6 +41,12 @@
   const closeModal = () => {
     emit('close');
   };
+
+  const btnLogout = () => {
+    closeModal();
+    router.push({path: '/login'});
+    logout();
+  }
   </script>
   
   <style scoped>
@@ -53,6 +64,7 @@
   .modal-content {
     background: white;
     padding: 20px;
+    width: 40%;
     border-radius: 8px;
     text-align: center;
   }

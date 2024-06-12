@@ -32,7 +32,6 @@ watchEffect(() => {
 <template>
   <SidebarComponent v-if="showSidebar"/>
   <LoginView v-if="!showSidebar"/>
-  <!-- <RouterView /> -->
 </template>
 
 <style scoped>

@@ -39,10 +39,11 @@
                 <hr>
                 <div class="pb-4">
                     <div class="d-flex align-items-center text-black text-decoration-none">
-                        <div>
-                            <img :src="userInfo.avatar" alt="profileImage" width="30" height="30" class="rounded" @click="openUserProfile">
+                        <div class="d-flex align-items-center" @click="openUserProfile">
+                            <img :src="userInfo.avatar" alt="profileImage" width="30" height="30" class="rounded">
+                            <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
                         </div>
-                        <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
+                        
                         <span>
                             <RouterLink to="/user/setting" class="d-flex text-black text-decoration-none mx-3">설정</RouterLink>
                         </span>
@@ -61,7 +62,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserInfoStore } from '@/stores/user';
-import UserDetailView from '@/views/user/UserDetailView.vue';
+import UserDetailView from '@/components/UserDetailComponent.vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;

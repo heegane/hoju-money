@@ -11,11 +11,7 @@
    <recentincome/>
     <recentoutcome/>
 </div> 
-   
-  
-
 </div>
-   
 </template>
 
 <script setup>
@@ -26,6 +22,13 @@ import totaloutcome from '@/views/home/totaloutcome.vue';
 import totalincome from '@/views/home/totalincome.vue';
 import netProceed from '@/views/home/netProceed.vue';
 
+import { useUserInfoStore } from '@/stores/user';
+
+const userInfoStore = useUserInfoStore();
+const userInfo = userInfoStore.userInfo;
+const getUserInfo = userInfoStore.getUserInfo;
+
+getUserInfo();
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
   <div v-if="isVisible" class="modal-overlay">
     <div class="modal-content">
       <button type="button" class="btn btn-close" @click="closeModal"></button>
-      <div>
+      <div class="text-center">
         <img
           :src="userInfo.avatar"
           alt="avatar"
@@ -31,6 +31,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const closeModal = () => {
+  isReadMode.value = true;
   emit('close');
 };
 
@@ -58,7 +59,7 @@ const switchMode = (mode) => {
   padding: 20px;
   width: 40%;
   border-radius: 8px;
-  text-align: center;
+  /* text-align: center; */
 }
 .btn-update {
   background-color: darkgray;

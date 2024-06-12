@@ -9,7 +9,7 @@
             class="d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-black text-decoration-none"
           >
             <img src="@/assets/logo_badge.png" width="50" alt="" />
-            <span class="fs-5 d-none d-sm-inline">호주머니</span>
+            <span class="fs-5 d-none d-sm-inline title-text">호주머니</span>
           </div>
           <ul
             class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
@@ -138,5 +138,9 @@ const closeModal = () => {
 
 .view-box {
   background-color: #fffdf6;
+}
+.title-text {
+  color: #4D2A30;
+  font-weight: bolder;
 }
 </style>

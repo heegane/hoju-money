@@ -1,23 +1,30 @@
 <template>
-  <div>
-    <span>이름: </span>
+  <div class="text-center">
+    <div>
     <span>{{ userInfo.name }}</span>
   </div>
   <div>
-    <span>이메일: </span>
     <span>{{ userInfo.email }}</span>
   </div>
   <div>
-    <span>총자산: </span>
+    <span>총자산: 원</span>
   </div>
   <div>
-    <button type="button" class="btn" @click="switchToUpdateMode">
-      내 정보 수정하기
-    </button>
-    <button type="button" class="btn" @click="btnLogout">
-      로그아웃(아이콘으로?)
+    <button type="button" class="btn btn-primary" @click="switchToUpdateMode">
+      수정
     </button>
   </div>
+  <div>
+    <button type="button" class="btn mx-0 px-0" @click="btnLogout">
+      <font-awesome-icon icon="fa-solid fa-user-secret"/>
+      <!-- <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+      <font-awesome-icon :icon="['fas', 'right-from-bracket']" /> -->
+      로그아웃
+    </button>
+  </div>
+  </div>
+  
+
 </template>
 
 <script setup>

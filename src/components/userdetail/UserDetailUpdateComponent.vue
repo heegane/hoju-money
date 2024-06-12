@@ -1,27 +1,34 @@
 <template>
   <div>
-    <span>이름: </span>
-    <input type="text" :placeholder="userInfo.name">
-  </div>
-  <div>
-    <span>이메일: </span>
-    <span>{{ userInfo.email }}</span>
-  </div>
-  <div>
-    <span>총자산: </span>
-  </div>
-  <div>
-    <button type="button" class="btn" @click="switchToReadMode">
-      저장하기
-    </button>
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">이름</label>
+        <input type="text" id="newName" class="form-control" :placeholder="userInfo.name" v-model="newName">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">이메일</label>
+        <input type="password" class="form-control" :placeholder="userInfo.email" readonly>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">총 자산</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" readonly>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-primary" @click="switchToReadMode">저장하기</button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script setup>
 import { useUserInfoStore } from '@/store/user';
+import { ref } from 'vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
+const updateName = userInfoStore.updateName;
+
+const newName = ref(userInfo.name);
 
 const props = defineProps({
   isReadMode: Boolean,
@@ -29,11 +36,9 @@ const props = defineProps({
 
 const emit = defineEmits(['updateMode']);
 
-const btnSave = () => {
-  
-};
-
 const switchToReadMode = () => {
+  userInfo.name = newName.value;
+  updateName();
   emit('updateMode', true);
 };
 </script>

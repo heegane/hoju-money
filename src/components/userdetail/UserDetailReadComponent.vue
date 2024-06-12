@@ -7,7 +7,8 @@
     <span>{{ userInfo.email }}</span>
   </div>
   <div>
-    <span>총자산: 원</span>
+    <span>총자산: {{ totalMoney.toLocaleString() }}원</span>
+    
   </div>
   <div>
     <button type="button" class="btn btn-primary" @click="switchToUpdateMode">
@@ -38,7 +39,8 @@ const logout = userInfoStore.logout;
 const router = useRouter();
 
 const props = defineProps({
-  isReadMode: Boolean
+  isReadMode: Boolean,
+  totalMoney: Number
 });
 
 const emit = defineEmits(['close', 'updateMode']);

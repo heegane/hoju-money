@@ -11,7 +11,7 @@
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">총 자산</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" readonly>
+        <input type="password" class="form-control" :placeholder="`${totalMoney.toLocaleString()}원`" readonly>
       </div>
       <div class="text-center">
         <button type="button" class="btn btn-primary" @click="switchToReadMode">저장하기</button>
@@ -32,6 +32,7 @@ const newName = ref(userInfo.name);
 
 const props = defineProps({
   isReadMode: Boolean,
+  totalMoney: Number
 });
 
 const emit = defineEmits(['updateMode']);

@@ -78,7 +78,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="income in pageData">
+          <tr v-for="income in pageData" @click="openDetailModal(income.id)">
             <td>{{income.date.split(" ")[0]}}</td>
             <td>
               {{categoriesStore.categoryList[income.category_id-1].typename}}
@@ -112,17 +112,22 @@
         </li>
       </ul>
     </div>
+    <div class="modal-view">
+      <IncomeUpdateDelete :isVisible="openModal" @close="closeModal"/>
+    </div>
   </div>
 </template>
 <script>
 import DatePicker from 'vue3-datepicker';
+import IncomeUpdateDelete from '@/components/transaction/IncomeUpdateDelete.vue'
 import { useRoute } from 'vue-router';
 import { onMounted, reactive, ref, toRaw } from 'vue';
 import { useCategoriesStore } from '@/store/categories';
 import { useComesStore } from '@/store/comes';
+import { useTransactionStore } from '@/store/transaction';
 
 export default {
-    components: {DatePicker},
+    components: {DatePicker, IncomeUpdateDelete},
     setup() {
         const route = useRoute();
         const today = new Date(); // 현재 날짜 저장
@@ -135,10 +140,24 @@ export default {
 
         const categoriesStore = useCategoriesStore();
         const comesStore = useComesStore();
+        const transactionStore = useTransactionStore();
 
         let pageState = ref(0); // current pageNum
         let pageData = ref([]); // current pageData(List)
         let categorySelect = ref(0); // category_id
+
+        const openModal = ref(false);
+
+        const openDetailModal = (id) => {
+          transactionStore.currentComeId = id;
+          console.log(transactionStore.currentComeId)
+          openModal.value = true;
+          console.log(openModal.value)
+        };
+
+        const closeModal = () => {
+          openModal.value = false;
+        };
 
         // data bind func
         const bindData = (arr)=> {
@@ -326,7 +345,8 @@ export default {
             }
 
         }
-        return {onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory};
+
+        return {openModal, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal};
     }
 }
 </script>
@@ -339,6 +359,6 @@ export default {
     background-color: #2B8EC8;
     border-color: #2B8EC8;
     font-weight: bold;
-
+    z-index : 0;
 }
 </style>

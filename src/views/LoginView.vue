@@ -1,6 +1,6 @@
 <template>
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="text-center">
+<div class="container d-flex justify-content-center align-items-center vh-100 pb-5">
+    <div class="text-center pb-5 border pt-5 px-5">
         <div>
             <img src="@/assets/logo_badge.png" alt="logo" class="img-fluid logo-image" />
         </div>
@@ -14,7 +14,7 @@
             <div class="mb-3">
                 <input type="password" class="form-control" v-model="userInfo.password">
             </div>
-            <div class="d-grid gap-2 d-md-block">
+            <div class="d-grid gap-2 d-md-block btn bg-dark p-0">
                 <button type="button" class="btn btn-dark" @click="btnLogin">Login with email</button>
             </div>
         </div>

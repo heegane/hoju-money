@@ -5,7 +5,7 @@
       <router-link to="/login" class="add-button">+</router-link>
     </div>
     <ul>
-      <li v-for="(item, index) in todoList" :key="index">{{ item.date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.money }}원</li>
+      <li v-for="(item, index) in todoList" :key="index">{{ item.date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.money.toLocaleString()}}원</li>
     </ul>
   </div>
 </template>

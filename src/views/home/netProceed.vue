@@ -4,7 +4,7 @@
         <div class="report-header">
             <!-- <h3 style="color: #2B8EC8;">카테고리별 리포트</h3>
             <h5>{{ new Date().getFullYear() }} {{ currentMonth }} </h5> -->
-            <h2>순수익: {{money.totalMoney}}</h2>
+            <h2>순수익: {{money.totalMoney.toLocaleString()}}원</h2>
         </div>
         <div class="chart-container">
             <canvas id="categoryChart2" ></canvas>

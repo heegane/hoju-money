@@ -10,38 +10,20 @@
           width="100"
         />
       </div>
-      <div>
-        <span>이름: </span>
-        <span>{{ userInfo.name }}</span>
-      </div>
-      <div>
-        <span>이메일: </span>
-        <span>{{ userInfo.email }}</span>
-      </div>
-      <div>
-        <span>총자산: </span>
-      </div>
-      <div>
-        <button type="button" class="btn" @click="btnUpdate">
-          내 정보 수정하기
-        </button>
-        <button type="button" class="btn" @click="btnLogout">
-          로그아웃(아이콘으로?)
-        </button>
-      </div>
+      <UserDetailReadComponent v-if="isReadMode" :isReadMode="isReadMode" @updateMode="switchMode" />
+      <UserDetailUpdateComponent v-else :isReadMode="isReadMode" @updateMode="switchMode"  />
     </div>
   </div>
 </template>
 
 <script setup>
 import { useUserInfoStore } from '@/store/user';
-import { useRouter } from 'vue-router';
+import UserDetailReadComponent from './UserDetailReadComponent.vue';
+import UserDetailUpdateComponent from './UserDetailUpdateComponent.vue';
+import { ref } from 'vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
-const logout = userInfoStore.logout;
-
-const router = useRouter();
 
 const props = defineProps({
   isVisible: Boolean,
@@ -52,15 +34,11 @@ const closeModal = () => {
   emit('close');
 };
 
-const btnUpdate = () => {
-  alert("수정 버튼 클릭");
-};
+const isReadMode = ref(true);
 
-const btnLogout = () => {
-  closeModal();
-  router.push({path: '/login'});
-  logout();
-};
+const switchMode = (mode) => {
+  isReadMode.value = mode;
+}
 </script>
 
 <style scoped>

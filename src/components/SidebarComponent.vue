@@ -115,7 +115,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserInfoStore } from '@/store/user';
-import UserDetailView from '@/components/UserDetailComponent.vue';
+import UserDetailView from '@/components/userdetail/UserDetailComponent.vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;

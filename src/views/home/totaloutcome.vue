@@ -32,7 +32,7 @@ export default {
             try {
                 const [comesResponse, categoriesResponse] = await Promise.all([
                     axios.get('http://localhost:3001/comes'),
-                    axios.get('http://localhost:3001/categorys')
+                    axios.get('http://localhost:3001/categories')
                 ]);
                 const comesData = comesResponse.data;
                 let outcome = comesData.reduce((total, currentValue) => {

@@ -1,151 +1,148 @@
 {
-  "users": [
-    {
-      "id": "1",
-      "name": "Brendin Sutherland",
-      "email": "bsutherland0@parallels.com",
-      "password": "kH7}P|!e}9TB._",
-      "avatar": "http://dummyimage.com/219x100.png/dddddd/000000"
-    },
-    {
-      "id": "2",
-      "name": "Theodore Ramplee",
-      "email": "tramplee1@goo.gl",
-      "password": "sT1}Wa7c|&LA",
-      "avatar": "http://dummyimage.com/236x100.png/dddddd/000000"
-    },
-    {
-      "id": "3",
-      "name": "Almire Kohler",
-      "email": "akohler2@economist.com",
-      "password": "wH5`b(k6PjSHDo5",
-      "avatar": "http://dummyimage.com/187x100.png/5fa2dd/ffffff"
-    },
-    {
-      "id": "4",
-      "name": "Lionel Quartly",
-      "email": "lquartly3@squarespace.com",
-      "password": "zA6>OB/ptbV(i0{",
-      "avatar": "http://dummyimage.com/101x100.png/cc0000/ffffff"
-    },
-    {
-      "id": "5",
-      "name": "Flo Gislebert",
-      "email": "fgislebert4@unicef.org",
-      "password": "eD5|S61G",
-      "avatar": "http://dummyimage.com/217x100.png/dddddd/000000"
-    },
-    {
-      "id": "6",
-      "name": "Joli Asty",
-      "email": "jasty5@xrea.com",
-      "password": "nZ2'~fr5&nH\"(oT",
-      "avatar": "http://dummyimage.com/214x100.png/5fa2dd/ffffff"
-    },
-    {
-      "id": "7",
-      "name": "Nicolea Tibald",
-      "email": "ntibald6@ox.ac.uk",
-      "password": "qP9{qX/y",
-      "avatar": "http://dummyimage.com/237x100.png/cc0000/ffffff"
-    },
-    {
-      "id": "8",
-      "name": "Penelope Garden",
-      "email": "pgarden7@pagesperso-orange.fr",
-      "password": "wM4/I|sw>bS~",
-      "avatar": "http://dummyimage.com/123x100.png/cc0000/ffffff"
-    },
-    {
-      "id": "9",
-      "name": "Harri Cabena",
-      "email": "hcabena8@bbb.org",
-      "password": "iY5/LN51r",
-      "avatar": "http://dummyimage.com/216x100.png/cc0000/ffffff"
-    },
-    {
-      "id": "10",
-      "name": "Eliza Durtnall",
-      "email": "edurtnall9@uiuc.edu",
-      "password": "zP6#\\MZ=IcU$m|",
-      "avatar": "http://dummyimage.com/177x100.png/cc0000/ffffff"
-    }
-  ],
-  "categorys": [
-    {
-      "id": "1",
-      "type": 1,
-      "typename": "월급"
-    },
-    {
-      "id": "2",
-      "type": 1,
-      "typename": "부수입"
-    },
-    {
-      "id": "3",
-      "type": 1,
-      "typename": "용돈"
-    },
-    {
-      "id": "4",
-      "type": 1,
-      "typename": "상여"
-    },
-    {
-      "id": "5",
-      "type": 1,
-      "typename": "금융소득"
-    },
-    {
-      "id": "6",
-      "type": 1,
-      "typename": "기타"
-    },
-    {
-      "id": "7",
-      "type": 2,
-      "typename": "식비"
-    },
-    {
-      "id": "8",
-      "type": 2,
-      "typename": "교통/차량"
-    },
-    {
-      "id": "9",
-      "type": 2,
-      "typename": "문화생활"
-    },
-    {
-      "id": "10",
-      "type": 2,
-      "typename": "마트/편의점"
-    },
-    {
-      "id": "11",
-      "type": 2,
-      "typename": "패션/미용"
-    },
-    {
-      "id": "12",
-      "type": 2,
-      "typename": "생활용품"
-    },
-    {
-      "id": "13",
-      "type": 2,
-      "typename": "기타"
-    }
-  ],
-  "comes": [
+    "users": [{
+            "id": "1",
+            "name": "김멀티",
+            "email": "multikim@naver.com",
+            "password": "12345678",
+            "avatar": "https://github.com/imdayoung/hoju-money/assets/86220363/422688a6-848f-4f66-8279-01e2231fff52"
+        },
         {
+            "id": "2",
+            "name": "Theodore Ramplee",
+            "email": "tramplee1@goo.gl",
+            "password": "sT1}Wa7c|&LA",
+            "avatar": "http://dummyimage.com/236x100.png/dddddd/000000"
+        },
+        {
+            "id": "3",
+            "name": "Almire Kohler",
+            "email": "akohler2@economist.com",
+            "password": "wH5`b(k6PjSHDo5",
+            "avatar": "http://dummyimage.com/187x100.png/5fa2dd/ffffff"
+        },
+        {
+            "id": "4",
+            "name": "Lionel Quartly",
+            "email": "lquartly3@squarespace.com",
+            "password": "zA6>OB/ptbV(i0{",
+            "avatar": "http://dummyimage.com/101x100.png/cc0000/ffffff"
+        },
+        {
+            "id": "5",
+            "name": "Flo Gislebert",
+            "email": "fgislebert4@unicef.org",
+            "password": "eD5|S61G",
+            "avatar": "http://dummyimage.com/217x100.png/dddddd/000000"
+        },
+        {
+            "id": "6",
+            "name": "Joli Asty",
+            "email": "jasty5@xrea.com",
+            "password": "nZ2'~fr5&nH\"(oT",
+            "avatar": "http://dummyimage.com/214x100.png/5fa2dd/ffffff"
+        },
+        {
+            "id": "7",
+            "name": "Nicolea Tibald",
+            "email": "ntibald6@ox.ac.uk",
+            "password": "qP9{qX/y",
+            "avatar": "http://dummyimage.com/237x100.png/cc0000/ffffff"
+        },
+        {
+            "id": "8",
+            "name": "Penelope Garden",
+            "email": "pgarden7@pagesperso-orange.fr",
+            "password": "wM4/I|sw>bS~",
+            "avatar": "http://dummyimage.com/123x100.png/cc0000/ffffff"
+        },
+        {
+            "id": "9",
+            "name": "Harri Cabena",
+            "email": "hcabena8@bbb.org",
+            "password": "iY5/LN51r",
+            "avatar": "http://dummyimage.com/216x100.png/cc0000/ffffff"
+        },
+        {
+            "id": "10",
+            "name": "Eliza Durtnall",
+            "email": "edurtnall9@uiuc.edu",
+            "password": "zP6#\\MZ=IcU$m|",
+            "avatar": "http://dummyimage.com/177x100.png/cc0000/ffffff"
+        }
+    ],
+    "categories": [{
+            "id": "1",
+            "type": 1,
+            "typename": "월급"
+        },
+        {
+            "id": "2",
+            "type": 1,
+            "typename": "부수입"
+        },
+        {
+            "id": "3",
+            "type": 1,
+            "typename": "용돈"
+        },
+        {
+            "id": "4",
+            "type": 1,
+            "typename": "상여"
+        },
+        {
+            "id": "5",
+            "type": 1,
+            "typename": "금융소득"
+        },
+        {
+            "id": "6",
+            "type": 1,
+            "typename": "기타"
+        },
+        {
+            "id": "7",
+            "type": 2,
+            "typename": "식비"
+        },
+        {
+            "id": "8",
+            "type": 2,
+            "typename": "교통/차량"
+        },
+        {
+            "id": "9",
+            "type": 2,
+            "typename": "문화생활"
+        },
+        {
+            "id": "10",
+            "type": 2,
+            "typename": "마트/편의점"
+        },
+        {
+            "id": "11",
+            "type": 2,
+            "typename": "패션/미용"
+        },
+        {
+            "id": "12",
+            "type": 2,
+            "typename": "생활용품"
+        },
+        {
+            "id": "13",
+            "type": 2,
+            "typename": "기타"
+        }
+    ],
+    "comes": [{
             "id": 1,
             "user_id": 1,
             "type": 1,
             "title": "5월 급여",
             "category_id": 1,
-            "money": 3000000,
+            "money": 2000000,
             "method": "KB 마이핏 통장",
             "memo": "월급이 통장을 스쳐간다..",
             "date": "2024-05-10 00:00:00"
@@ -156,7 +153,7 @@
             "type": 1,
             "title": "Google Youtube 컨텐츠 크리에이터 정산",
             "category_id": 2,
-            "money": 825000,
+            "money": 82500,
             "method": "KB ONE 통장",
             "memo": "영상 3개 평균 조회수 120만",
             "date": "2024-05-25 00:00:00"
@@ -167,7 +164,7 @@
             "type": 1,
             "title": "용돈",
             "category_id": 3,
-            "money": 200000,
+            "money": 20000,
             "method": "현금",
             "memo": "할머니 할아버지",
             "date": "2024-05-17 00:00:00"
@@ -178,7 +175,7 @@
             "type": 1,
             "title": "정기 예금 만기 이자",
             "category_id": 5,
-            "money": 600000,
+            "money": 120000,
             "method": "신한 쏠편한 통장",
             "memo": "",
             "date": "2024-05-11 00:00:00"
@@ -475,7 +472,7 @@
             "type": 1,
             "title": "이월 월급",
             "category_id": 1,
-            "money": 10000000,
+            "money": 2000000,
             "method": "KB 마이핏 통장",
             "memo": "월급 개꿀",
             "date": "2024-06-01 10:00:00"
@@ -508,7 +505,7 @@
             "type": 1,
             "title": "회사 상여금",
             "category_id": 4,
-            "money": 14000000,
+            "money": 400000,
             "method": "KB 리브 메이트",
             "memo": "회사에 충성",
             "date": "2024-06-04 09:20:00"
@@ -541,9 +538,9 @@
             "type": 1,
             "title": "추가 월급",
             "category_id": 1,
-            "money": 1700000,
+            "money": 100000,
             "method": "K-패스 카드",
-            "memo": "",
+            "memo": "야근 수당",
             "date": "2024-06-07 18:00:00"
         },
         {
@@ -563,7 +560,7 @@
             "type": 1,
             "title": "할아버지가 준 용돈",
             "category_id": 3,
-            "money": 190000,
+            "money": 20000,
             "method": "KB ONE 통장",
             "memo": "할아버지 사랑해",
             "date": "2024-06-09 07:30:00"
@@ -576,7 +573,7 @@
             "category_id": 4,
             "money": 200000,
             "method": "신한 쏠편한 통장",
-            "memo": "할아버지 사랑해",
+            "memo": "",
             "date": "2024-06-10 15:20:00"
         },
         {
@@ -926,7 +923,7 @@
             "type": 1,
             "title": "삼성전자 배당금",
             "category_id": 5,
-            "money": 500000,
+            "money": 50000,
             "method": "신한 쏠편한 통장",
             "memo": "삼성증권 통합이체",
             "date": "2024-06-23 00:00:00"
@@ -1102,7 +1099,7 @@
             "type": 1,
             "title": "상여금",
             "category_id": 4,
-            "money": 1000000,
+            "money": 100000,
             "method": "KB ONE 통장",
             "memo": "1분기",
             "date": "2024-06-20 00:00:00"
@@ -1124,7 +1121,7 @@
             "type": 1,
             "title": "마인크래프트",
             "category_id": 2,
-            "money": 1000000,
+            "money": 100000,
             "method": "KB ONE 통장",
             "memo": "행운 20괭이 현금 판매",
             "date": "2024-06-04 00:00:00"
@@ -1899,5 +1896,5 @@
             "memo": "천리 마라탕",
             "date": "2024-06-29 20:01:08"
         }
-    ]                 
+    ]
 }

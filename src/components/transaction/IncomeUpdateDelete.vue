@@ -105,7 +105,7 @@ export default {
                     income.value.date = new Date(come.date);
                 }
                 
-                const category = store.categorys.find(c => c.id === come.category_id);
+                const category = store.categories.find(c => c.id === come.category_id);
                 if (category) {
                     selectedCategoryName.value = category.typename;
                 }
@@ -113,7 +113,7 @@ export default {
             }
         });
 
-        const categories = computed(() => store.categorys);
+        const categories = computed(() => store.categories);
         //수입에 해당하는 카테고리만 필터링해서 출력
         const filteredCategories = computed(() => {
             if (Array.isArray(categories.value)) {

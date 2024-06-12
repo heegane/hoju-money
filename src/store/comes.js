@@ -15,7 +15,8 @@ export const useComesStore = defineStore('comes', {
             "memo": "",
             "date": ""
         },
-        comeList: []
+        comeList: [],
+        comeType: -1 // income == 1, outcome == 2
     }),
     actions: {
         // income && outcome
@@ -30,9 +31,9 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        // income만
-        async getIncomeList() {
-            await axios.get('http://localhost:3001/comes?type=1&_sort=date')
+        // 전체, income = 1, outcome =2
+        async getComesList() {
+            await axios.get(`http://localhost:3001/comes?type=${this.comeType}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     this.comeList = res.data.reverse(); // 최근 데이터 순으로 가져오기
@@ -42,14 +43,14 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        // 월별 income
-        async getIncomesOfMonth(date) {
-            await axios.get(`http://localhost:3001/comes?type=1&_sort=date`)
+        // 월별 comes, income = 1, outcome =2
+        async getComesOfMonth(date) {
+            await axios.get(`http://localhost:3001/comes?type=${this.comeType}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     console.log(temp)
-                    const t_str = date.getFullYear()+"-"+('0' + (date.getMonth()+1)).slice(-2);
+                    const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2);
                     console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
@@ -58,14 +59,14 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        // 일별 income
-        async getIncomesOfDate(date) {
-            await axios.get(`http://localhost:3001/comes?type=1&_sort=date`)
+        // 일별 comes, income = 1, outcome =2
+        async getComesOfDate(date) {
+            await axios.get(`http://localhost:3001/comes?type=${this.comeType}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     console.log(temp)
-                    const t_str = date.getFullYear()+"-"+('0' + (date.getMonth()+1)).slice(-2)+"-"+('0' + date.getDate()).slice(-2);
+                    const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
                     console.log(t_str)
                     console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
@@ -75,15 +76,15 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        // 기간별 income
-        async getIncomesOfPeriod(date1, date2) {
-            await axios.get(`http://localhost:3001/comes?type=1&_sort=date`)
+        // 기간별 comes, income = 1, outcome =2
+        async getComesOfPeriod(date1, date2) {
+            await axios.get(`http://localhost:3001/comes?type=${this.comeType}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     console.log(temp)
-                    const start_str = date1.getFullYear()+"-"+('0' + (date1.getMonth()+1)).slice(-2)+"-"+('0' + date1.getDate()).slice(-2);
-                    const end_str = date2.getFullYear()+"-"+('0' + (date2.getMonth()+1)).slice(-2)+"-"+('0' + date2.getDate()).slice(-2);
+                    const start_str = date1.getFullYear() + "-" + ('0' + (date1.getMonth() + 1)).slice(-2) + "-" + ('0' + date1.getDate()).slice(-2);
+                    const end_str = date2.getFullYear() + "-" + ('0' + (date2.getMonth() + 1)).slice(-2) + "-" + ('0' + date2.getDate()).slice(-2);
                     console.log(start_str, end_str)
                     const filteredData = temp.filter(e => {
                         const date = e.date.split(' ')[0]; // "2024-06-12 17:00:38" -> "2024-06-12"
@@ -96,8 +97,8 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        // category 별 income
-        async getIncomesOfCategory(id) {
+        // category 별 전체 comes
+        async getComesOfCategory(id) {
             await axios.get(`http://localhost:3001/comes?category_id=${id}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
@@ -110,13 +111,13 @@ export const useComesStore = defineStore('comes', {
         },
 
         // category 별 월별 income
-        async getIncomesOfCategoryAndMonth(date, id) {
+        async getComesOfCategoryAndMonth(date, id) {
             await axios.get(`http://localhost:3001/comes?category_id=${id}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     console.log(temp)
-                    const t_str = date.getFullYear()+"-"+('0' + (date.getMonth()+1)).slice(-2);
+                    const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2);
                     console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
@@ -126,12 +127,12 @@ export const useComesStore = defineStore('comes', {
                 })
         },
         // category 별 일별 income
-        async getIncomesOfCategoryAndDate(date, id) {
+        async getComesOfCategoryAndDate(date, id) {
             await axios.get(`http://localhost:3001/comes?category_id=${id}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    const t_str = date.getFullYear()+"-"+('0' + (date.getMonth()+1)).slice(-2)+"-"+('0' + date.getDate()).slice(-2);
+                    const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
                     console.log(t_str)
                     console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
@@ -141,15 +142,15 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-         // category 별 기간별 income
-         async getIncomesOfCategoryAndPeriod(date1, date2, id) {
+        // category 별 기간별 income
+        async getComesOfCategoryAndPeriod(date1, date2, id) {
             await axios.get(`http://localhost:3001/comes?category_id=${id}&_sort=date`)
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     console.log(temp)
-                    const start_str = date1.getFullYear()+"-"+('0' + (date1.getMonth()+1)).slice(-2)+"-"+('0' + date1.getDate()).slice(-2);
-                    const end_str = date2.getFullYear()+"-"+('0' + (date2.getMonth()+1)).slice(-2)+"-"+('0' + date2.getDate()).slice(-2);
+                    const start_str = date1.getFullYear() + "-" + ('0' + (date1.getMonth() + 1)).slice(-2) + "-" + ('0' + date1.getDate()).slice(-2);
+                    const end_str = date2.getFullYear() + "-" + ('0' + (date2.getMonth() + 1)).slice(-2) + "-" + ('0' + date2.getDate()).slice(-2);
                     console.log(start_str, end_str)
                     const filteredData = temp.filter(e => {
                         const date = e.date.split(' ')[0]; // "2024-06-12 17:00:38" -> "2024-06-12"
@@ -162,20 +163,6 @@ export const useComesStore = defineStore('comes', {
                     console.log(err);
                 })
         },
-        ////////////////////////////////////////////////////
-        // outcome만
-        getOutcomeList() {
-            axios.get('http://localhost:3001/comes?type=2&_sort=date')
-                .then((res) => {
-                    // 성공 핸들링
-                    this.comeList = res.data.reverse();
-                })
-                .catch((err) => {
-                    // 에러 핸들링
-                    console.log(err);
-                })
-                
-        }
         // getComeDetail(id) {
         //     axios.get(`http://localhost:3001/comes/${id}`)
         //         .then((res) => {
@@ -194,7 +181,7 @@ export const useComesStore = defineStore('comes', {
         //             // 에러 핸들링
         //             console.log(err);
         //         })
-                
+
         // }
     }
 });

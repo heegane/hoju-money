@@ -5,7 +5,8 @@ export const useTransactionStore = defineStore('transaction', {
     state: () => ({
         users: {id:0, name:"", email:"", password:"", avatar:""},
         categorys: {id:0, type:0, typename:""},
-        comes: {id:0, users_id:0, type:0, title:"", category_id:0, money:0, method:"", memo:"", date:""}
+        comes: {id:0, users_id:0, type:0, title:"", category_id:0, money:0, method:"", memo:"", date:""},
+        currentComeId: 101
       }),
 
     actions: {
@@ -38,8 +39,8 @@ export const useTransactionStore = defineStore('transaction', {
         // Read
         async getCome(id) {
             try {
-                const response = await axios.get(`http://localhost:3001/comes/${id}`);
-                return response.data;
+                const response = await axios.get(`http://localhost:3001/comes?${id}`);
+                return response.data[id-1]; //데이터를 배열로 보내주고 있음!
             } catch (error) {
                 console.error('There was an error fetching the come!', error);
             }
@@ -62,7 +63,7 @@ export const useTransactionStore = defineStore('transaction', {
         async deleteCome(id) {
             try {
                 await axios.delete(`http://localhost:3001/comes/${id}`);
-                this.comes = this.comes.filter(c => c.id !== id);
+                this.comes = this.comes.find(c => c.id !== id);
             } catch (error) {
                 console.error('There was an error deleting the come!', error);
             }

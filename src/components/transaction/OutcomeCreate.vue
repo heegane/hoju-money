@@ -119,7 +119,7 @@ export default {
                 date: ''
             };
             selectedCategoryName.value = '수입 카테고리 선택';
-            selectedMethodName.value = '입금 계좌 선택';
+            selectedMethodName.value = '결제 수단 선택';
         };
 
         return {

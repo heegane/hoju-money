@@ -77,7 +77,7 @@ export default {
             store.fetchData();
         });
 
-        const categories = computed(() => store.categorys);
+        const categories = computed(() => store.categories);
         //지출에 해당하는 카테고리만 필터링해서 출력
         const filteredCategories = computed(() => {
             if (Array.isArray(categories.value)) {

@@ -2,19 +2,24 @@
   <div>
     <form>
       <div class="form-group my-2">
-        <label for="exampleInputEmail1">이름</label>
-        <input type="text" id="newName" class="form-control" :placeholder="userInfo.name" v-model="newName">
+        <label for="name">이름</label>
+        <input type="text" id="name" class="form-control" :placeholder="userInfo.name" v-model="newName">
       </div>
       <div class="form-group my-2">
-        <label for="exampleInputPassword1">이메일</label>
-        <input type="password" class="form-control" :placeholder="userInfo.email" readonly>
+        <label for="email">이메일</label>
+        <div class="px-1" id="email">
+          {{ userInfo.email }}
+        </div>
       </div>
       <div class="form-group my-2">
-        <label for="exampleInputPassword1">총 자산</label>
-        <input type="password" class="form-control" :placeholder="`${totalMoney.toLocaleString()}원`" readonly>
+        <label for="money">총 자산</label>
+        <div class="px-1" id="money">
+          {{ totalMoney.toLocaleString() }}원
+        </div>
       </div>
       <div class="mt-3 text-end">
-        <button type="button" class="btn btn-brown" @click="switchToReadMode">저장</button>
+        <button type="button" class="btn btn-gray mx-2" @click="btnCancel">취소</button>
+        <button type="button" class="btn btn-brown" @click="btnSave">저장</button>
       </div>
     </form>
   </div>
@@ -37,11 +42,21 @@ const props = defineProps({
 
 const emit = defineEmits(['updateMode']);
 
-const switchToReadMode = () => {
+const btnCancel = () => {
+  emit('updateMode', true);
+}
+
+const btnSave = () => {
   userInfo.name = newName.value;
   updateName();
   emit('updateMode', true);
-};
+}
+
+// const switchToReadMode = () => {
+//   userInfo.name = newName.value;
+//   updateName();
+//   emit('updateMode', true);
+// };
 </script>
 
 <style scoped>
@@ -62,6 +77,9 @@ const switchToReadMode = () => {
   width: 40%;
   border-radius: 8px;
   text-align: center;
+}
+.btn-gray {
+  background-color: #e7e0e2;
 }
 .btn-brown {
   background-color: #4D2A30;

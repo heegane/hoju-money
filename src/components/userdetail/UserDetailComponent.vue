@@ -82,7 +82,7 @@ onMounted(() => {
 .modal-content {
   background: white;
   padding: 20px;
-  width: 40%;
+  width: 30%;
   border-radius: 8px;
   z-index: 1001;
   /* text-align: center; */

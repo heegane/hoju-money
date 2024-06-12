@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <profile />
-
+    <div class="flex-div">
+      <profile />
+    </div>
     <div class="flex-div">
       <totalincome />
       <totaloutcome />
@@ -13,6 +14,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import profile from '@/views/home/profile.vue';
@@ -32,7 +34,21 @@ getUserInfo();
 </script>
 
 <style scoped>
-.flex-div{
-    display:flex;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.flex-div > * {
+  flex: 1;
+  margin: 0 10px;
 }
 </style>

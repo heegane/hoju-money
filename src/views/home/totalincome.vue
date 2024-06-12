@@ -1,17 +1,40 @@
 <template>
-     <div class="card"  >
-    <!-- <div class="background-color"> -->
-        <div class="report-header">
-            <!-- <h3 style="color: #2B8EC8;">카테고리별 리포트</h3>
-            <h5>{{ new Date().getFullYear() }} {{ currentMonth }} </h5> -->
-            <h2>총수익: {{money.incomeMoney.toLocaleString()}}원</h2>
-        </div>
-        <div class="chart-container">
-            <canvas id="categoryChart2" ></canvas>
-        <!-- </div> -->
+    <div class="card">
+      <div class="report-header">
+        <h2 style="color: #4D2A30; font-size: 34px;">총수익: {{money.incomeMoney.toLocaleString()}}원</h2>
+      </div>
+      <div class="chart-container" >
+        <canvas id="categoryChart2" style="margin-left: 30px;"></canvas>
+      </div>
     </div>
-    </div>
-</template>
+  </template>
+  
+  <style scoped>
+  .card {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 정렬하기 위해 컬럼 방향으로 설정합니다. */
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .report-header {
+    margin-bottom: 20px; /* 레포트 헤더와 차트 사이에 간격 추가 */
+  }
+  
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh; /* 전체 화면의 75% */
+    width: 100%; /* 차트 컨테이너의 너비를 100%로 설정하여 수평 중앙 정렬을 유지합니다. */
+  }
+  </style>
+  
 <script>
 import { ref, onMounted,reactive } from 'vue';
 import axios from 'axios';
@@ -141,25 +164,3 @@ export default {
     }
 };
 </script>
-<style scoped>
-.background-color {
-    background-color: #351c61; /* 배경색 지정 */
-}
-.report-header {
-    margin-left: 30px; /* 왼쪽 마진 추가 */
-}
-.chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30vh; /* 전체 화면의 75% */
-    margin: 20px auto; /* 수평 중앙 정렬 및 위아래 마진 추가 */
-}
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-</style>

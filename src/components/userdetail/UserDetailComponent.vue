@@ -77,12 +77,14 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 .modal-content {
   background: white;
   padding: 20px;
   width: 40%;
   border-radius: 8px;
+  z-index: 1001;
   /* text-align: center; */
 }
 </style>

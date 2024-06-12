@@ -2,17 +2,17 @@ import axios from 'axios';
 import { reactive } from 'vue';
 
 export function useDataLoader() {
-  const todoList = reactive([]);
   const money = reactive({ totalMoney: 0, incomeMoney: 0, outcomeMoney: 0 });
 
-  const loadData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/users/1');
-      todoList.push(response.data);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    }
-  };
+  const loadData = () => {
+    axios.get("http://localhost:3001/users/1")
+    .then((response) => {
+      userDetail.value = response.data;
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
 
   const loadTotal = async () => {
     try {
@@ -34,14 +34,10 @@ export function useDataLoader() {
       money.incomeMoney = income;
       money.outcomeMoney = outcome;
       money.totalMoney = income - outcome;
-
-      console.log(money.totalMoney);
-      console.log(money.incomeMoney);
-      console.log(money.outcomeMoney);
     } catch (error) {
       console.error('Error loading total:', error);
     }
-  };
+  }
 
-  return { todoList, money, loadData, loadTotal };
+  return { money, loadData, loadTotal };
 }

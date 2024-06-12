@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="flex-div">
+    <UserDetailComponent :isVisible="openModal" @close="closeModal" />
+    <div class="flex-div" @click="openUserProfile">
       <profile />
     </div>
     <div class="flex-div">
@@ -23,12 +24,24 @@ import recentoutcome from '@/views/home/recentoutcome.vue';
 import totaloutcome from '@/views/home/totaloutcome.vue';
 import totalincome from '@/views/home/totalincome.vue';
 import netProceed from '@/views/home/netProceed.vue';
+import UserDetailComponent from '@/components/userdetail/UserDetailComponent.vue';
 
 import { useUserInfoStore } from '@/store/user';
+import { ref } from 'vue';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
 const getUserInfo = userInfoStore.getUserInfo;
+
+const openModal = ref(false);
+
+const openUserProfile = () => {
+  openModal.value = true;
+};
+
+const closeModal = () => {
+  openModal.value = false;
+};
 
 getUserInfo();
 </script>

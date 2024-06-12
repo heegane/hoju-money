@@ -38,6 +38,11 @@ watchEffect(() => {
 header {
   line-height: 1.5;
   max-height: 100vh;
+  
+}
+
+.viewbox {
+  background-color: #E5E6ED;
 }
 
 .logo {

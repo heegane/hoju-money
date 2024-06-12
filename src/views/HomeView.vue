@@ -1,17 +1,17 @@
 <template>
-<div class="container">
-    <profile/>
+  <div class="container">
+    <profile />
 
-   <div class="flex-div">
-    <totalincome/>
-    <totaloutcome/>
-    <netProceed/>
-   </div> 
-   <div class="flex-div">
-   <recentincome/>
-    <recentoutcome/>
-</div> 
-</div>
+    <div class="flex-div">
+      <totalincome />
+      <totaloutcome />
+      <netProceed />
+    </div>
+    <div class="flex-div">
+      <recentincome />
+      <recentoutcome />
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -22,7 +22,7 @@ import totaloutcome from '@/views/home/totaloutcome.vue';
 import totalincome from '@/views/home/totalincome.vue';
 import netProceed from '@/views/home/netProceed.vue';
 
-import { useUserInfoStore } from '@/stores/user';
+import { useUserInfoStore } from '@/store/user';
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
@@ -35,5 +35,4 @@ getUserInfo();
 .flex-div{
     display:flex;
 }
-
 </style>

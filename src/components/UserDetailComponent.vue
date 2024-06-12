@@ -3,7 +3,12 @@
     <div class="modal-content">
       <button type="button" class="btn btn-close" @click="closeModal"></button>
       <div>
-        <img :src="userInfo.avatar" alt="avatar" class="rounded-circle" width="100">
+        <img
+          :src="userInfo.avatar"
+          alt="avatar"
+          class="rounded-circle"
+          width="100"
+        />
       </div>
       <div>
         <span>이름: </span>
@@ -17,15 +22,19 @@
         <span>총자산: </span>
       </div>
       <div>
-        <button type="button" class="btn" @click="btnUpdate">내 정보 수정하기</button>
-        <button type="button" class="btn" @click="btnLogout">로그아웃(아이콘으로?)</button>
+        <button type="button" class="btn" @click="btnUpdate">
+          내 정보 수정하기
+        </button>
+        <button type="button" class="btn" @click="btnLogout">
+          로그아웃(아이콘으로?)
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useUserInfoStore } from '@/stores/user';
+import { useUserInfoStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 
 const userInfoStore = useUserInfoStore();

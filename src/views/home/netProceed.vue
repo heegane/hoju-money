@@ -2,13 +2,12 @@
     <div class="card"  >
     <!-- <div class="background-color"> -->
         <div class="report-header">
-            <!-- <h3 style="color: #2B8EC8;">카테고리별 리포트</h3>
-            <h5>{{ new Date().getFullYear() }} {{ currentMonth }} </h5> -->
-            <h2>순수익: {{money.totalMoney.toLocaleString()}}원</h2>
+           
+            <h2 style="color: #4D2A30; font-size: 34px;">순수익: {{money.totalMoney.toLocaleString()}}원</h2>
         </div>
-        <div class="chart-container">
+        <!-- <div class="chart-container">
             <canvas id="categoryChart2" ></canvas>
-        </div>
+        </div> -->
       <!-- </div> -->
     </div>
 </template>
@@ -125,6 +124,8 @@
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    align-items: center;
+    justify-content: center;
   }
   ul {
     list-style-type: none;
@@ -133,11 +134,4 @@
   li {
     margin: 5px 0;
   }
-  .card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
   </style>

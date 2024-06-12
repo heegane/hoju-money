@@ -1,36 +1,36 @@
 <template>
-    <router-link to="/login">
-    <div class="card"  >
-      <div class="profile" v-for="todo in todoList">
-             <div class="details">
-          <h2>{{todo.name}}님 안녕하세요?</h2>
-          <p>{{todo.email}}</p>
-          <p>{{money.totalMoney.toLocaleString()}}원</p>
-        </div>
+  <div>
+  <router-link to="/login" class="no-underline">
+    <div class="card">
+      <div style="display:flex;">
+        <div>
+        <img :src="userInfo.avatar" class="avatar">
       </div>
+      <div>
+        <h2 style="color: #4D2A30; font-size: 25px;">{{userDetail.name}}님 안녕하세요?</h2>
+              <p class="custom-text">{{userDetail.email}}</p>
+              <p style="color: #4D2A30; font-size: 22px;">총자산: {{money.totalMoney.toLocaleString()}}원</p>
+      </div>
+        </div>
     </div>
   </router-link>
-  </template>
-
+  </div>
+</template>
 
 
 
   <script>
-  import { reactive,onMounted} from 'vue';
+  import { ref, reactive,onMounted} from 'vue';
   import axios from 'axios';
+  import { useUserInfoStore } from '@/store/user';
+
+
   export default {
-      //객체참조이고 setup안에서 let해놓으면 안된다.
-      //todoList=response.data;
-      //todoList상수를 선언했으니까 todoList=response.data; 불가능
-      
-      //const todoList=ref([]);  todoList.value=response.data;
-  
-      //const todoList=reacvie({todoList:[]})
-      //todoList.todoList=response.data;
-  
       setup()
       {
-          let todoList=reactive([]);
+        const userInfoStore = useUserInfoStore();
+          const userInfo = userInfoStore.userInfo;
+          let userDetail= ref({});
         //   let totalIncome;
         //   let totalOutcome;
           const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
@@ -38,15 +38,8 @@
           const loadData=()=>{
               //axios로 데이터를 불러와서 todoList에 전달한다
               axios.get("http://localhost:3001/users/1")
-              .then(function (response) {
-                  
-                // 성공 핸들링
-                //   console.log(response.data);
-                  //컴포즈티브 방식
-                //   response.data.forEach(element => {
-                      todoList.push(response.data);
-                      
-                //   });
+              .then((response) => {
+                userDetail.value = response.data;
               })
               .catch(function (error) {
                   // 에러 핸들링
@@ -112,26 +105,45 @@
     
   })
           //함수호출
-          return {todoList,loadData,money};
+          return {userDetail, loadData,money,userInfo};
       }
   }
   </script>
-  <style lang="">
-      
-  </style>
-<style scoped>
+  
+  <style scoped>
 .card {
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-.profile img {
-  width: 50px;
-  border-radius: 50%;
 }
 .details {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.no-underline {
+  text-decoration: none;
+  color: inherit;
+}
+.horizontal-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-text {
+    color: #4D2A30 ;
+    font-size: 18px;
+}
+
 </style>

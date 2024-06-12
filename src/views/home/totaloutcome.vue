@@ -4,10 +4,10 @@
         <div class="report-header">
             <!-- <h3 style="color: #2B8EC8;">카테고리별 리포트</h3>
             <h5>{{ new Date().getFullYear() }} {{ currentMonth }} </h5> -->
-            <h2>총지출: {{money.outcomeMoney.toLocaleString()}}원</h2>
+            <h2 style="color: #4D2A30; font-size: 34px;">총지출: {{money.outcomeMoney.toLocaleString()}}원</h2>
         </div>
         <div class="chart-container">
-            <canvas id="categoryChart" ></canvas>
+            <canvas id="categoryChart" style="margin-left: 30px;"></canvas>
         </div>
     <!-- </div> -->
 </div>
@@ -161,5 +161,6 @@ export default {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
+  
 }
 </style>

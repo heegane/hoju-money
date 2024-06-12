@@ -42,7 +42,7 @@ header {
 }
 
 .viewbox {
-  background-color: #E5E6ED;
+  background-color: #FEF9E9;
 }
 
 .logo {

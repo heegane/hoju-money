@@ -35,4 +35,5 @@ getUserInfo();
 .flex-div{
     display:flex;
 }
+
 </style>

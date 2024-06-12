@@ -104,7 +104,7 @@
           </div>
         </div>
       </div>
-      <div class="col py-3">
+      <div class="view-box col py-3">
         <RouterView />
       </div>
     </div>
@@ -133,6 +133,10 @@ const closeModal = () => {
 
 <style scoped>
 .bg-nav {
-  background-color: #F3F3F3;
+  background-color: #f5ceb4;
+}
+
+.view-box {
+  background-color: #fffdf6;
 }
 </style>

@@ -149,7 +149,6 @@ export default {
 
         // 초기 1번 = mounted 될 때 호출
         onMounted(async ()=>{
-            console.log(route.path)
             comesStore.comeType = route.path.includes("income") ? 1 : 2;
             [month.value, date.value, startDate.value, endDate.value] = [today, today, today, today]; // 현재 시간으로 초기화
             // get outcome categories

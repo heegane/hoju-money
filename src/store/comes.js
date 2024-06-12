@@ -49,9 +49,7 @@ export const useComesStore = defineStore('comes', {
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    console.log(temp)
                     const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2);
-                    console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
                 .catch((err) => {
@@ -65,10 +63,7 @@ export const useComesStore = defineStore('comes', {
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    console.log(temp)
                     const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
-                    console.log(t_str)
-                    console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
                 .catch((err) => {
@@ -82,10 +77,8 @@ export const useComesStore = defineStore('comes', {
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    console.log(temp)
                     const start_str = date1.getFullYear() + "-" + ('0' + (date1.getMonth() + 1)).slice(-2) + "-" + ('0' + date1.getDate()).slice(-2);
                     const end_str = date2.getFullYear() + "-" + ('0' + (date2.getMonth() + 1)).slice(-2) + "-" + ('0' + date2.getDate()).slice(-2);
-                    console.log(start_str, end_str)
                     const filteredData = temp.filter(e => {
                         const date = e.date.split(' ')[0]; // "2024-06-12 17:00:38" -> "2024-06-12"
                         return date >= start_str && date <= end_str;
@@ -116,9 +109,7 @@ export const useComesStore = defineStore('comes', {
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    console.log(temp)
                     const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2);
-                    console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
                 .catch((err) => {
@@ -133,8 +124,6 @@ export const useComesStore = defineStore('comes', {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
                     const t_str = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
-                    console.log(t_str)
-                    console.log(temp.filter(e => e.date.includes(t_str)))
                     this.comeList = temp.filter(e => e.date.includes(t_str));
                 })
                 .catch((err) => {
@@ -148,10 +137,8 @@ export const useComesStore = defineStore('comes', {
                 .then((res) => {
                     // 성공 핸들링
                     const temp = res.data.reverse(); // 최근 데이터 순으로 가져오기
-                    console.log(temp)
                     const start_str = date1.getFullYear() + "-" + ('0' + (date1.getMonth() + 1)).slice(-2) + "-" + ('0' + date1.getDate()).slice(-2);
                     const end_str = date2.getFullYear() + "-" + ('0' + (date2.getMonth() + 1)).slice(-2) + "-" + ('0' + date2.getDate()).slice(-2);
-                    console.log(start_str, end_str)
                     const filteredData = temp.filter(e => {
                         const date = e.date.split(' ')[0]; // "2024-06-12 17:00:38" -> "2024-06-12"
                         return date >= start_str && date <= end_str;

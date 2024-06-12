@@ -165,7 +165,7 @@ export default {
         // data bind func
         const bindData = (arr)=> {
             const temp = [...toRaw(arr)];
-            totalPageCount.value = parseInt(temp.length / 10) + 1;
+            totalPageCount.value = Math.ceil(temp.length / 10);
             pageData.value = [...temp.slice(pageState.value*10, pageState.value*10+10)];
         }
 

@@ -3,45 +3,44 @@
         <div class="modal-content">
             <h2>지출 입력</h2>
             <label for="datepicker">날짜</label>
-            <datepicker v-model="outcome.date" :disabled="!isEditable" input-class="form-control">
+            <datepicker 
+                v-model="outcome.date"
+                :disabled="!isEditable"
+                input-class="form-control">
             </datepicker>
 
-            금액 <br />
-            <input type="text" v-model.number="outcome.money" :disabled="!isEditable"> <br />
+            금액 <br/>
+            <input type="text" v-model.number="outcome.money" :disabled="!isEditable"> <br/>
 
-            카테고리 <br />
+            카테고리 <br/>
             <div class="category">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
-                    :disabled="!isEditable">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedCategoryName}}
                 </button>
                 <ul class="dropdown-menu">
                     <li v-for="category in filteredCategories" :key="category.id">
-                        <a class="dropdown-item" href="#" @click="selectCategory(category.id, category.typename)"
-                            :disabled="!isEditable">{{ category.typename }}</a>
+                        <a class="dropdown-item" href="#" @click="selectCategory(category.id, category.typename)" :disabled="!isEditable">{{ category.typename }}</a>
                     </li>
                 </ul>
             </div>
 
-            결제수단 <br />
+            결제수단 <br/>
             <div class="method">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
-                    :disabled="!isEditable">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedMethodName}}
                 </button>
                 <ul class="dropdown-menu">
                     <li v-for="method in methods" :key="method">
-                        <a class="dropdown-item" href="#" @click="selectMethod(method)" :disabled="!isEditable">{{
-                            method }}</a>
+                        <a class="dropdown-item" href="#" @click="selectMethod(method)" :disabled="!isEditable">{{ method }}</a>
                     </li>
                 </ul>
             </div>
 
-            내역 <br />
-            <input type="text" v-model="outcome.title" :disabled="!isEditable"> <br />
+            내역 <br/>
+            <input type="text" v-model="outcome.title" :disabled="!isEditable"> <br/>
 
-            메모 <br />
-            <input type="text" v-model="outcome.memo" :disabled="!isEditable"> <br />
+            메모 <br/>
+            <input type="text" v-model="outcome.memo" :disabled="!isEditable"> <br/>
 
             <button type="button" class="btn btn-dark" @click="enableEditing" v-if="!isEditable">수정</button>
             <button type="button" class="btn btn-dark" @click="submitForm" v-if="isEditable">수정 완료</button>
@@ -90,7 +89,8 @@ const dataBind = async ()=> {
             outcome.value.date = new Date(come.date);
         }
         
-        const category = store.categories.find(c => c.id === come.category_id);
+        //const category = store.categories.find(c => c.id === come.category_id);
+        const category = await store.getCategories(come.category_id);
         if (category) {
             selectedCategoryName.value = category.typename;
         }
@@ -202,6 +202,6 @@ const closeModal = () => {
     width: 40%;
     border-radius: 8px;
     text-align: center;
-    z-index: 999;
+    z-index : 999;
 }
 </style>

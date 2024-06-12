@@ -46,6 +46,15 @@ export const useTransactionStore = defineStore('transaction', {
             }
         },
 
+        async getCategories(id) {
+            try {
+                const response = await axios.get(`http://localhost:3001/categories/${id}`);
+                return response.data; //데이터를 배열로 보내주고 있음!
+            } catch (error) {
+                console.error('There was an error fetching the come!', error);
+            }
+        },
+
         // Update
         async updateCome(come) {
             try {

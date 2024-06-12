@@ -1,12 +1,17 @@
 <template>
     <div v-if="isVisible" class="modal-overlay">
         <div class="modal-content">
-            <h2>수입</h2>
+            <h2>수입 입력</h2>
             <label for="datepicker">날짜</label>
-            <datepicker v-model="income.date" :disabled="!isEditable" input-class="form-control">
+            <datepicker 
+                v-model="income.date" 
+                :disabled="!isEditable" 
+                input-class="form-control">
             </datepicker>
+
             금액 <br />
             <input type="text" v-model.number="income.money" :disabled="!isEditable"> <br />
+            
             카테고리 <br />
             <div class="category">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
@@ -20,6 +25,7 @@
                     </li>
                 </ul>
             </div>
+
             입금계좌 <br />
             <div class="method">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
@@ -28,12 +34,11 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li v-for="method in methods" :key="method">
-                        <a class="dropdown-item" href="#" @click="selectMethod(method)" :disabled="!isEditable">{{
-                            method
-                            }}</a>
+                        <a class="dropdown-item" href="#" @click="selectMethod(method)" :disabled="!isEditable">{{method}}</a>
                     </li>
                 </ul>
             </div>
+            
             내역 <br />
             <input type="text" v-model="income.title" :disabled="!isEditable"> <br />
             메모 <br />
@@ -45,10 +50,12 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import { ref, onMounted, computed, defineProps, defineEmits, watch } from 'vue';
 import Datepicker from 'vue3-datepicker';
 import useTransactionStore from '../../store/transaction.js';
+
 //모달창 설정
 const props = defineProps({
     isVisible: Boolean,
@@ -56,6 +63,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const store = useTransactionStore();
+
 const income = ref({
     users_id: 1,
     type: 1,
@@ -72,22 +80,18 @@ const selectedMethodName = ref('입금 계좌 선택');
 const isEditable = ref(false);
 
 const dataBind = async ()=> {
-    console.log("mounteddddddddddddddd")
     await store.fetchData();
     const comeId = store.currentComeId; // Pinia 저장소에서 셋팅할 ID를 가져옴
-    console.log("comeId은 잘 들어감")
-    console.log(comeId);
     const come = await store.getCome(comeId);
-    console.log("Come : ", come);
     if (come) {
         income.value = { ...come };
-        // console.log(income);
-        // console.log("잘들어감?");
         //income.date가 string일 경우 Date 객체로 변환
         if (typeof come.date === 'string') {
             income.value.date = new Date(come.date);
         }
-        const category = store.categories.find(c => c.id === come.category_id);
+        
+        //const category = store.categories.find(c => c.id === come.category_id);
+        const category = await store.getCategories(come.category_id);
         if (category) {
             selectedCategoryName.value = category.typename;
         }
@@ -111,27 +115,31 @@ const filteredCategories = computed(() => {
 });
 //입금 계좌를 선택할 수 있는 항목
 const methods = ref(['mastercard', 'visa', 'americanexpress']);
+
 //카테고리
 const selectCategory = (id, name) => {
     income.value.category_id = id;
     selectedCategoryName.value = name;
-    //income.value.category_name = name;
 };
+
 //입금 계좌 선택
 const selectMethod = (method) => {
     income.value.method = method;
     selectedMethodName.value = method;
 };
+
 //수정완료 -> 저장
 const submitForm = async () => {
     await store.updateCome(income.value);
     //resetForm(); //닫기 전까지는 계속 수정할 수 있게 폼 안비움
     isEditable.value = false; //저장 후에 다시 막음 (수정하려면 다시 수정 버튼 클릭)
 };
+
 //수정 버튼 (수정/수정완료)
 const enableEditing = () => {
     isEditable.value = true;
 };
+
 //삭제
 const deleteId = async () => {
     const comeId = store.currentComeId;
@@ -147,6 +155,7 @@ const deleteId = async () => {
         console.error('Invalid ID for deletion');
     }
 };
+
 //취소 버튼 (폼 비우기)
 const resetForm = () => {
     income.value = {
@@ -169,6 +178,7 @@ const closeModal = () => {
     emit('close');
 };
 </script>
+
 <style scoped>
 .form-control {
     width: 200px;

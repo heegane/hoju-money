@@ -16,16 +16,27 @@ export const useMoneyInfoStore = defineStore('moneyInfo', {
     actions: {
       async loadTotal() {
         try {
-          const res = await axios.get(`http://localhost:3001/comes`);
+          const currentYear = new Date().getFullYear();
+          const currentMonth = new Date().getMonth() + 1;
 
-          const income = res.data.reduce((total, currentValue) => {
+          const response = await axios.get(`http://localhost:3001/comes`);
+
+          const filteredData = response.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            return (
+                itemDate.getFullYear() === currentYear &&
+                itemDate.getMonth() + 1 === currentMonth
+            );
+        });
+
+          const income = filteredData.reduce((total, currentValue) => {
             if (currentValue.type === 1) {
               return total + currentValue.money;
             }
             return total;
           }, 0);
     
-          const outcome = res.data.reduce((total, currentValue) => {
+          const outcome = filteredData.reduce((total, currentValue) => {
             if (currentValue.type === 2) {
               return total + currentValue.money;
             }

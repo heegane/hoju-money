@@ -9,8 +9,8 @@
           to="/home"
           class="nav-link d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-black text-decoration-none"
           >
-          <img src="@/assets/logo_badge.png" width="50" alt="" />
-            <span class="mx-1 fs-5 d-none d-sm-inline title-text">호주머니</span>
+          <img src="@/assets/logo_badge.png" width="40" alt="" />
+            <span class="mx-1 fs-5 d-none d-sm-inline text-title">호주머니</span>
         </RouterLink>
           <ul
             class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
@@ -139,6 +139,17 @@ const closeModal = () => {
 </script>
 
 <style scoped>
+@font-face {
+    font-family: 'TTHakgyoansimRikodeoR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimRikodeoR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.text-title {
+  font-family: 'TTHakgyoansimRikodeoR';
+}
+
 .bg-nav {
   background-color: #f5ceb4;
 }

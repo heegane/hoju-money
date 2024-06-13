@@ -116,10 +116,10 @@
       </ul>
     </div>
     <div class="modal-view">
-      <IncomeUpdateDelete :isVisible="openModal" @close="closeModal"/>
+      <IncomeUpdateDelete :isVisible="openModal" @close="closeModal" @refresh="refreshData"/>
     </div>
     <div class="modal-view">
-      <IncomeCreate :isVisible="openModal1" @close="closeCreateModal"/>
+      <IncomeCreate :isVisible="openModal1" @close="closeCreateModal"  @refresh="refreshData"/>
     </div>
   </div>
 </template>
@@ -363,7 +363,20 @@ export default {
 
         }
 
-        return {openModal, openModal1, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal, openCreateModal, closeCreateModal};
+        const refreshData = async () => {
+            if (dateType.value == 0) { // 월별
+                await comesStore.getComesOfMonth(month.value);
+            } else if (dateType.value == 1) { // 일별
+                await comesStore.getComesOfDate(date.value);
+            } else if (dateType.value == 2) { // 기간별
+                await comesStore.getComesOfPeriod(startDate.value, endDate.value);
+            } else { // 전체
+                await comesStore.getComesList();
+            }
+            bindData(comesStore.comeList);
+        };
+
+        return {openModal, openModal1, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal, openCreateModal, closeCreateModal, refreshData};
     }
 }
 </script>

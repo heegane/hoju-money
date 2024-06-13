@@ -9,10 +9,11 @@
                 input-class="form-control">
             </datepicker>
 
-            금액 <br/>
-            <input type="text" v-model.number="outcome.money" :disabled="!isEditable"> <br/>
+            <br/>
+            금액
+            <input type="text" v-model.number="outcome.money" :disabled="!isEditable">
 
-            카테고리 <br/>
+            카테고리
             <div class="category">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedCategoryName}}
@@ -24,7 +25,7 @@
                 </ul>
             </div>
 
-            결제수단 <br/>
+            결제수단
             <div class="method">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedMethodName}}
@@ -36,15 +37,15 @@
                 </ul>
             </div>
 
-            내역 <br/>
-            <input type="text" v-model="outcome.title" :disabled="!isEditable"> <br/>
+            내역
+            <input type="text" v-model="outcome.title" :disabled="!isEditable">
 
-            메모 <br/>
-            <input type="text" v-model="outcome.memo" :disabled="!isEditable"> <br/>
+            메모
+            <input type="text" v-model="outcome.memo" :disabled="!isEditable">
 
             <button type="button" class="btn btn-dark" @click="enableEditing" v-if="!isEditable">수정</button>
             <button type="button" class="btn btn-dark" @click="submitForm" v-if="isEditable">수정 완료</button>
-            <button type="button" class="btn btn-dark" @click="closeModal">취소</button>
+            <button type="button" class="btn btn-dark" @click="closeModal">닫기</button>
             <button type="button" class="btn btn-danger" @click="deleteId">삭제</button>
         </div>
     </div>
@@ -136,6 +137,7 @@ const submitForm = async () => {
     };
     await store.updateCome(outcomeData);
     isEditable.value = false; //저장 후에 다시 막음 (수정하려면 다시 수정 버튼 클릭)
+    emit('refresh'); //수정 시 IncomeView쪽 새로고침
 };
 
 //수정 버튼 (수정 -> 수정완료)
@@ -149,8 +151,10 @@ const deleteId = async () => {
     if (comeId) {
         try {
             await store.deleteCome(comeId);
-            alert('Deleted outcome successfully');
+            alert('삭제 완료!');
             resetForm(); //폼 초기화
+            emit('refresh'); //삭제 시 IncomeView쪽 새로고침
+            closeModal();
         } catch (error) {
             console.error('There was an error deleting the come!', error);
         }

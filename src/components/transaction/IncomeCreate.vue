@@ -8,10 +8,11 @@
                 input-class="form-control">
             </datepicker>
 
-            금액 <br/>
-            <input type="text" v-model.number="income.money"> <br/>
+            <br/>
+            금액
+            <input type="text" v-model.number="income.money">
 
-            카테고리 <br/>
+            카테고리
             <div class="category">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">
                     {{selectedCategoryName}}
@@ -23,7 +24,7 @@
                 </ul>
             </div>
 
-            입금계좌 <br/>
+            입금계좌
             <div class="method">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">
                     {{selectedMethodName}}
@@ -35,11 +36,11 @@
                 </ul>
             </div>
 
-            내역 <br/>
-            <input type="text" v-model="income.title"> <br/>
+            내역
+            <input type="text" v-model="income.title">
 
-            메모 <br/>
-            <input type="text" v-model="income.memo"> <br/>
+            메모
+            <input type="text" v-model="income.memo">
 
             <button type="button" class="btn btn-dark" @click="submitForm">저장</button>
             <button type="button" class="btn btn-dark" @click="closeModal">취소</button>
@@ -93,7 +94,7 @@ const methods = ref(['KB 마이핏 통장', 'KB ONE 통장', '신한 쏠편한 �
 
 //카테고리
 const selectCategory = (id, name) => {
-    income.value.category_id = id.number;
+    income.value.category_id = Number(id);
     selectedCategoryName.value = name;
 };
 
@@ -110,8 +111,10 @@ const submitForm = async () => {
         ...income.value,
         date: formattedDate
     };
-    await store.updateCome(incomeData);
+    await store.createCome(incomeData);
     resetForm(); //후에 데이터 생성을 위해 폼비우기
+    emit('refresh'); //저장 시 IncomeView쪽 새로고침
+    closeModal();
 };
 
 //취소 버튼 (폼 비우기)

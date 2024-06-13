@@ -8,10 +8,11 @@
                 input-class="form-control">
             </datepicker>
 
-            금액 <br/>
-            <input type="text" v-model.number="outcome.money"> <br/>
+            <br/>
+            금액
+            <input type="text" v-model.number="outcome.money">
 
-            카테고리 <br/>
+            카테고리
             <div class="category">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">
                     {{selectedCategoryName}}
@@ -23,7 +24,7 @@
                 </ul>
             </div>
 
-            결제수단 <br/>
+            결제수단
             <div class="method">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">
                     {{selectedMethodName}}
@@ -35,11 +36,11 @@
                 </ul>
             </div>
 
-            내역 <br/>
-            <input type="text" v-model="outcome.title"> <br/>
+            내역
+            <input type="text" v-model="outcome.title">
 
-            메모 <br/>
-            <input type="text" v-model="outcome.memo"> <br/>
+            메모
+            <input type="text" v-model="outcome.memo">
 
             <button type="button" class="btn btn-dark" @click="submitForm">저장</button>
             <button type="button" class="btn btn-dark" @click="closeModal">취소</button>
@@ -93,7 +94,7 @@ const methods = ref(['KB 마이핏 통장', 'KB ONE 통장', '신한 쏠편한 �
 
 //카테고리
 const selectCategory = (id, name) => {
-    outcome.value.category_id = id.number;
+    outcome.value.category_id = Number(id);
     selectedCategoryName.value = name;
 };
 
@@ -110,8 +111,10 @@ const submitForm = async () => {
         ...outcome.value,
         date: formattedDate
     };
-    await store.updateCome(outcomeData);
+    await store.createCome(outcomeData);
     resetForm(); //후에 데이터 생성을 위해 폼비우기
+    emit('refresh'); //저장 시 IncomeView쪽 새로고침
+    closeModal();
 };
 
 //취소 버튼 (폼 비우기)
@@ -128,6 +131,20 @@ const resetForm = () => {
     };
     selectedCategoryName.value = '지출 카테고리 선택';
     selectedMethodName.value = '결제 수단 선택';
+};
+
+//날짜 데이터 포맷
+const formatDate = (date) => {
+    const pad = (n) => (n < 10 ? '0' + n : n);
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
 const closeModal = () => {

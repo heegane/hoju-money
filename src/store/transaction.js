@@ -28,7 +28,7 @@ export const useTransactionStore = defineStore('transaction', {
         // Create
         async createCome(come) {
             try {
-                come.id = this.comes.length + 1;
+                come.id = (this.comes.length + 1).toString();
                 const response = await axios.post(`http://localhost:3001/comes`, come);
                 this.comes.push(response.data);
             } catch (error) {

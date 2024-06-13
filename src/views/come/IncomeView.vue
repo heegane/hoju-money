@@ -1,11 +1,11 @@
 <template lang="">
-  <div class="container">
-    <div class="monpick-div" v-if="dateType == 0 && month">
+  <div class="container view-box mt-5">
+    <div class="monpick-div mb-3" v-if="dateType == 0 && month">
       <button class="btn" type="button" @click="prevMonth()">&lt;</button>
       <h1>{{month.getFullYear()}}년 {{month.getMonth()+1}}월</h1>
       <button class="btn" type="button" @click="nextMonth()">&gt;</button>
     </div>
-    <div class="select-div bg-light">
+    <div class="select-div">
       <div class="date-div">
         <div>
           <select
@@ -19,7 +19,7 @@
             <option :value="3">전체</option>
           </select>
         </div>
-        <div v-if="dateType === 0">
+        <div class="picker-div" v-if="dateType === 0">
           <DatePicker
             :locale="ko"
             v-model="month"
@@ -29,7 +29,7 @@
             inputFormat="yyyy-MM"
           />
         </div>
-        <div v-if="dateType === 1">
+        <div class="picker-div" v-if="dateType === 1">
           <DatePicker
             :locale="ko"
             v-model="date"
@@ -66,7 +66,10 @@
         </select>
       </div>
     </div>
-    <div class="list-div mt-5">
+    <div class="btn-div mt-3">
+      <button type="button" class="btn btn-primary" @click="openDetailModal">Create</button>
+    </div>
+    <div class="list-div mt-2">
       <table class="table">
         <thead>
           <tr>
@@ -78,7 +81,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="income in pageData">
+          <tr v-for="income in pageData" @click="openDetailModal(income.id)">
             <td>{{income.date.split(" ")[0]}}</td>
             <td>
               {{categoriesStore.categoryList[income.category_id-1].typename}}
@@ -90,7 +93,7 @@
         </tbody>
       </table>
     </div>
-    <div class="page-nation-div">
+    <div class="pagenation-div mt-5">
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="javascript:void(0);" @click="onPrevPage()"
@@ -112,17 +115,22 @@
         </li>
       </ul>
     </div>
+    <div class="modal-view">
+      <IncomeUpdateDelete :isVisible="openModal" @close="closeModal"/>
+    </div>
   </div>
 </template>
 <script>
 import DatePicker from 'vue3-datepicker';
+import IncomeUpdateDelete from '@/components/transaction/IncomeUpdateDelete.vue'
 import { useRoute } from 'vue-router';
 import { onMounted, reactive, ref, toRaw } from 'vue';
 import { useCategoriesStore } from '@/store/categories';
 import { useComesStore } from '@/store/comes';
+import { useTransactionStore } from '@/store/transaction';
 
 export default {
-    components: {DatePicker},
+    components: {DatePicker, IncomeUpdateDelete},
     setup() {
         const route = useRoute();
         const today = new Date(); // 현재 날짜 저장
@@ -135,15 +143,29 @@ export default {
 
         const categoriesStore = useCategoriesStore();
         const comesStore = useComesStore();
+        const transactionStore = useTransactionStore();
 
         let pageState = ref(0); // current pageNum
         let pageData = ref([]); // current pageData(List)
         let categorySelect = ref(0); // category_id
 
+        const openModal = ref(false);
+
+        const openDetailModal = (id) => {
+          transactionStore.currentComeId = id;
+          console.log(transactionStore.currentComeId)
+          openModal.value = true;
+          console.log(openModal.value)
+        };
+
+        const closeModal = () => {
+          openModal.value = false;
+        };
+
         // data bind func
         const bindData = (arr)=> {
             const temp = [...toRaw(arr)];
-            totalPageCount.value = parseInt(temp.length / 10) + 1;
+            totalPageCount.value = Math.ceil(temp.length / 10);
             pageData.value = [...temp.slice(pageState.value*10, pageState.value*10+10)];
         }
 
@@ -326,19 +348,35 @@ export default {
             }
 
         }
-        return {onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory};
+
+        return {openModal, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal};
     }
 }
 </script>
 <style scoped>
-.select-div, .date-div, .period-div, .monpick-div{
-    display : flex;
-    align-items: center;
+.view-box {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding : 32px;
+}
+
+.picker-div, .period-div, .select-div, .date-div, .category-div {
+  display: flex;
+  align-items: center;
+  margin-left :16px;
+}
+.monpick-div {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-div {
+  float : right;
 }
 .page-item.active .page-link {
     background-color: #2B8EC8;
     border-color: #2B8EC8;
     font-weight: bold;
-
+    z-index : 0;
 }
 </style>

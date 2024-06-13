@@ -68,13 +68,14 @@ export default {
     onMounted(()=>{
       loadTotal();
     });
-  
+
     return { money, userInfo };
   }
 }
 </script>
   
 <style scoped>
+
 .card {
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */

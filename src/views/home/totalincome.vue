@@ -1,6 +1,6 @@
 <template>
 <div class="card">
-    <div class="report-header">
+    <div>
         <div class="font-brown fs-4 fw-bolder">총 수입</div>
         <div class="font-brown fs-5">{{moneyInfo.incomeMoney.toLocaleString()}}원</div>
     </div>
@@ -131,10 +131,6 @@ onMounted(() => {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-}
-
-.report-header {
-  margin-bottom: 20px;
 }
 
 .chart-container {

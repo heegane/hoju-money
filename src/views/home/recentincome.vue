@@ -1,7 +1,7 @@
 <template>
 <div class="card">
   <div class="header">
-    <span class="font-brown fs-4 fw-bolder">최근 수입 목록</span>
+    <span class="font-brown fs-5 fw-bolder">최근 수입 목록</span>
     <button class="add-button" @click="openCreateModal">+</button>
   </div>
   <ul>
@@ -76,6 +76,7 @@ export default {
 ul {
   list-style-type: none;
   padding: 0;
+  margin-bottom: 0;
 }
 li {
   margin: 5px 0;
@@ -86,6 +87,7 @@ li {
   align-items: center;
 }
 .add-button {
+  padding-bottom: 3px;
   font-size: 24px;
   background-color: #4D2A30;
   color: white;

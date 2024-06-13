@@ -5,8 +5,8 @@
       <div>
         <img :src="userInfo.avatar" class="avatar mx-4">
       </div>
-      <div class="text-left">
-        <div class="font-brown fs-3 fw-bolder">{{ userInfo.name }}님 안녕하세요?</div>
+      <div class="text-left mx-5">
+        <div class="font-brown fs-3 fw-bolder">반가워요 {{ userInfo.name }}님!</div>
         <div class="font-brown fs-5">{{ userInfo.email }}</div>
         <div class="font-brown fs-5 fw-bold">총자산: {{ moneyInfo.totalMoney.toLocaleString() }}원</div>
       </div>

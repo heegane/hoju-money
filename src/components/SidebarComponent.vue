@@ -9,8 +9,8 @@
           to="/home"
           class="nav-link d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-black text-decoration-none"
           >
-          <img src="@/assets/logo_badge.png" width="50" alt="" />
-            <span class="mx-1 fs-5 d-none d-sm-inline title-text">호주머니</span>
+          <img src="@/assets/logo_badge.png" width="40" alt="" />
+            <span class="mx-1 fs-5 d-none d-sm-inline text-title">호주머니</span>
         </RouterLink>
           <ul
             class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
@@ -104,7 +104,7 @@
                   to="/user/setting"
                   class="d-flex text-black text-decoration-none mx-3"
                   >
-                  <font-awesome-icon icon="fa-solid fa-gear" />
+                  <font-awesome-icon icon="fa-solid fa-gear" class="fs-4" />
                 </RouterLink>
               </span>
             </div>
@@ -139,15 +139,15 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-div {
-  font-family: 'Pretendard-Regular', cursive;
+@font-face {
+    font-family: 'TTHakgyoansimRikodeoR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimRikodeoR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+.text-title {
+  font-family: 'TTHakgyoansimRikodeoR';
 }
 
 .bg-nav {

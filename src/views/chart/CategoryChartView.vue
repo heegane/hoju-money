@@ -1,7 +1,7 @@
 <template>
     <div class="report-container">
-        <div>
-            <h3 style="color: #2B8EC8;">카테고리별 리포트</h3>
+        <div class="title-container">
+            <h3 style="color: #4D2A30;">카테고리별 리포트</h3>
             <h5>{{ currentYear }}년 {{ currentMonth }}월 </h5>
         </div>
         <div class="chart-container">
@@ -137,14 +137,21 @@ export default {
 </script>
 <style scoped>
 .report-container {
-    margin: 20px; /* 전체 컨테이너에 마진 적용 */
+    background-color: white;
+    margin: 20px;
+    padding: 10px;
+}
+
+.title-container {
+    margin: 20px;
+    padding: 10px;
 }
 
 .chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh; /* 전체 화면의 75% */
-    margin: 10px auto; /* 수평 중앙 정렬 및 위아래 마진 추가 */
+    height: 70vh;
+    margin: 10px;
 }
 </style>

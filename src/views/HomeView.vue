@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container py-5">
   <UserDetailComponent :isVisible="openModal" @close="closeModal" />
   <div class="flex-div" @click="openUserProfile">
     <profile />
@@ -57,6 +57,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .flex-div {

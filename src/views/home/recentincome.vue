@@ -2,7 +2,7 @@
 <div class="card">
   <div class="header">
     <span class="font-brown fs-4 fw-bolder">최근 수입 목록</span>
-    <button class="add-button btn-brown" @click="openCreateModal">+</button>
+    <button class="add-button" @click="openCreateModal">+</button>
   </div>
   <ul>
     <li v-for="(item, index) in useHistory" :key="index" class="income-item">
@@ -12,7 +12,7 @@
     </li>
   </ul>
 </div>
-<IncomeCreate :isVisible="openModal1" @close="closeCreateModal" />
+<IncomeCreate :isVisible="openModal1" @close="closeCreateModal" @refresh="refreshData"/>
 </template>
 
 <script>
@@ -49,11 +49,15 @@ export default {
       openModal1.value = false;
     };
 
+    const refreshData = () => {
+      loadTotal();
+    };
+
     onMounted(() => {
       loadTotal();
     });
 
-    return { useHistory, openModal1, openCreateModal, closeCreateModal };
+    return { useHistory, openModal1, openCreateModal, closeCreateModal, refreshData };
   }
 }
 </script>

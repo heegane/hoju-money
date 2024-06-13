@@ -12,7 +12,7 @@
     </li>
   </ul>
 </div>
-<OutcomeCreate :isVisible="openModal1" @close="closeCreateModal" />
+<OutcomeCreate :isVisible="openModal1" @close="closeCreateModal" @refresh="refreshData" />
 </template>
 
 <script>
@@ -49,11 +49,15 @@ export default {
       openModal1.value = false;
     };
 
+    const refreshData = () => {
+      loadTotal();
+    };
+
     onMounted(()=>{
       loadTotal();
     })
   
-    return {useHistory, openModal1, openCreateModal, closeCreateModal};
+    return {useHistory, openModal1, openCreateModal, closeCreateModal, refreshData};
   }
 }
 </script>

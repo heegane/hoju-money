@@ -1,7 +1,7 @@
 <template>
     <div v-if="isVisible" class="modal-overlay">
         <div class="modal-content">
-            <h2>지출 입력</h2>
+            <h2>지출 상세보기</h2>
             <label for="datepicker">날짜</label>
             <datepicker 
                 v-model="outcome.date"
@@ -9,10 +9,11 @@
                 input-class="form-control">
             </datepicker>
 
-            금액 <br/>
-            <input type="text" v-model.number="outcome.money" :disabled="!isEditable"> <br/>
+            <br/>
+            금액
+            <input type="text" v-model.number="outcome.money" :disabled="!isEditable">
 
-            카테고리 <br/>
+            카테고리
             <div class="category">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedCategoryName}}
@@ -24,7 +25,7 @@
                 </ul>
             </div>
 
-            결제수단 <br/>
+            결제수단
             <div class="method">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" :disabled="!isEditable">
                     {{selectedMethodName}}
@@ -36,15 +37,15 @@
                 </ul>
             </div>
 
-            내역 <br/>
-            <input type="text" v-model="outcome.title" :disabled="!isEditable"> <br/>
+            내역
+            <input type="text" v-model="outcome.title" :disabled="!isEditable">
 
-            메모 <br/>
-            <input type="text" v-model="outcome.memo" :disabled="!isEditable"> <br/>
+            메모
+            <input type="text" v-model="outcome.memo" :disabled="!isEditable">
 
             <button type="button" class="btn btn-dark" @click="enableEditing" v-if="!isEditable">수정</button>
             <button type="button" class="btn btn-dark" @click="submitForm" v-if="isEditable">수정 완료</button>
-            <button type="button" class="btn btn-dark" @click="closeModal">취소</button>
+            <button type="button" class="btn btn-dark" @click="closeModal">닫기</button>
             <button type="button" class="btn btn-danger" @click="deleteId">삭제</button>
         </div>
     </div>
@@ -136,6 +137,7 @@ const submitForm = async () => {
     };
     await store.updateCome(outcomeData);
     isEditable.value = false; //저장 후에 다시 막음 (수정하려면 다시 수정 버튼 클릭)
+    emit('refresh'); //수정 시 IncomeView쪽 새로고침
 };
 
 //수정 버튼 (수정 -> 수정완료)
@@ -149,8 +151,10 @@ const deleteId = async () => {
     if (comeId) {
         try {
             await store.deleteCome(comeId);
-            alert('Deleted outcome successfully');
+            alert('삭제 완료!');
             resetForm(); //폼 초기화
+            emit('refresh'); //삭제 시 IncomeView쪽 새로고침
+            closeModal();
         } catch (error) {
             console.error('There was an error deleting the come!', error);
         }
@@ -316,6 +320,31 @@ const closeModal = () => {
 .modal-content .actions .btn {
     width: 48%;
     margin: 5px 0;
+}
+
+/* 스크롤바 css */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    visibility: hidden; /* 스크롤바 숨기기 */
+}
+
+.modal-content:hover::-webkit-scrollbar-thumb {
+    visibility: visible; /* 호버 시 스크롤바 보이게 */
+}
+
+.modal-content:hover::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @media (max-width: 768px) {

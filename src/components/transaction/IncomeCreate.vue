@@ -88,7 +88,7 @@ const filteredCategories = computed(() => {
     return [];
 });
 //입금 계좌를 선택할 수 있는 항목
-const methods = ref([]);
+const methods = ref(['KB 마이핏 통장', 'KB ONE 통장', '신한 쏠편한 통장', 'KB 리브 메이트', 'SC제일 비씨카드', 'KB 나라사랑카드', 'K-패스 카드', '현금']);
 
 //카테고리
 const selectCategory = (id, name) => {
@@ -164,6 +164,7 @@ const closeModal = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 999;
 }
 .modal-content {
   background: white;
@@ -171,5 +172,6 @@ const closeModal = () => {
   width: 40%;
   border-radius: 8px;
   text-align: center;
+  z-index: 998;
 }
 </style>

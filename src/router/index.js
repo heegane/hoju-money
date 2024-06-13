@@ -5,7 +5,7 @@ import IncomeView from '../views/come/IncomeView.vue'
 import OutcomeView from '../views/come/OutcomeView.vue'
 import CategoryChartView from '../views/chart/CategoryChartView.vue'
 import ComesChartView from '../views/chart/ComesChartView.vue'
-import UserDetailView from '../components/UserDetailComponent.vue'
+import UserDetailView from '../components/userdetail/UserDetailComponent.vue'
 import SettingView from '../views/user/SettingView.vue'
 
 const router = createRouter({

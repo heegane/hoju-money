@@ -10,6 +10,7 @@ export const useMoneyInfoStore = defineStore('moneyInfo', {
       moneyInfo: {
         incomeMoney: 0,
         outcomeMoney: 0,
+        netMoney: 0,
         totalMoney: 0
       }
     }),
@@ -20,6 +21,20 @@ export const useMoneyInfoStore = defineStore('moneyInfo', {
           const currentMonth = new Date().getMonth() + 1;
 
           const response = await axios.get(`http://localhost:3001/comes`);
+
+          const totalIncome = response.data.reduce((total, currentValue) => {
+            if (currentValue.type === 1) {
+              return total + currentValue.money;
+            }
+            return total;
+          }, 0);
+
+          const totalOutcome = response.data.reduce((total, currentValue) => {
+            if (currentValue.type === 2) {
+              return total + currentValue.money;
+            }
+            return total;
+          }, 0);
 
           const filteredData = response.data.filter((item) => {
             const itemDate = new Date(item.date);
@@ -43,9 +58,11 @@ export const useMoneyInfoStore = defineStore('moneyInfo', {
             return total;
           }, 0);
 
+          this.moneyInfo.totalMoney = totalIncome - totalOutcome;
+
           this.moneyInfo.incomeMoney = income;
           this.moneyInfo.outcomeMoney = outcome;
-          this.moneyInfo.totalMoney = income - outcome;
+          this.moneyInfo.netMoney = income - outcome;
         } catch(err) {
           console.error(err);
         }

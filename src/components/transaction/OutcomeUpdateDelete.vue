@@ -108,16 +108,16 @@ const categories = computed(() => store.categories);
 //지출에 해당하는 카테고리만 필터링해서 출력
 const filteredCategories = computed(() => {
     if (Array.isArray(categories.value)) {
-        return categories.value.filter(category => category.type == 1);
+        return categories.value.filter(category => category.type == 2);
     }
     return [];
 });
 //결제수단을 선택할 수 있는 항목
-const methods = ref(['mastercard', 'visa', 'americanexpress']);
+const methods = ref(['KB 마이핏 통장', 'KB ONE 통장', '신한 쏠편한 통장', 'KB 리브 메이트', 'SC제일 비씨카드', 'KB 나라사랑카드', 'K-패스 카드', '현금']);
 
 //카테고리
 const selectCategory = (id, name) => {
-    outcome.value.category_id = id;
+    outcome.value.category_id = Number(id);
     selectedCategoryName.value = name;
 };
 
@@ -129,8 +129,12 @@ const selectMethod = (method) => {
 
 //수정완료 -> 저장
 const submitForm = async () => {
-    await store.updateCome(outcome.value);
-    //resetForm(); //닫기 전까지는 계속 수정할 수 있게 폼 안비움
+    const formattedDate = formatDate(outcome.value.date);
+    const outcomeData = {
+        ...outcome.value,
+        date: formattedDate
+    };
+    await store.updateCome(outcomeData);
     isEditable.value = false; //저장 후에 다시 막음 (수정하려면 다시 수정 버튼 클릭)
 };
 
@@ -171,6 +175,20 @@ const resetForm = () => {
     selectedMethodName.value = '입금 계좌 선택';
     isEditable.value = false;
     //창 닫기 추가하기
+};
+
+//날짜 데이터 포맷
+const formatDate = (date) => {
+    const pad = (n) => (n < 10 ? '0' + n : n);
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
 const closeModal = () => {

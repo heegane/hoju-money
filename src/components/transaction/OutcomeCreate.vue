@@ -87,6 +87,7 @@ const filteredCategories = computed(() => {
     }
     return [];
 });
+
 //결제수단을 선택할 수 있는 항목
 const methods = ref(['KB 마이핏 통장', 'KB ONE 통장', '신한 쏠편한 통장', 'KB 리브 메이트', 'SC제일 비씨카드', 'KB 나라사랑카드', 'K-패스 카드', '현금']);
 
@@ -137,9 +138,15 @@ const closeModal = () => {
 
 <style scoped>
 .form-control {
-    width: 200px;
-    padding: 5px;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -152,12 +159,103 @@ const closeModal = () => {
   justify-content: center;
   z-index: 999;
 }
+
 .modal-content {
-  background: white;
-  padding: 20px;
-  width: 40%;
-  border-radius: 8px;
-  text-align: center;
-  z-index: 998;
+    background: white;
+    padding: 15px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: left;
+    z-index: 999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.modal-content label {
+    font-weight: bold;
+    margin-top: 8px;
+    display: block;
+    font-size: 14px;
+}
+
+.modal-content input[type="text"],
+.modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.modal-content textarea {
+    height: 80px;
+}
+
+.modal-content .category,
+.modal-content .method {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.modal-content .btn {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f5f5f5;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modal-content .btn:hover {
+    background: #e0e0e0;
+}
+
+.modal-content .btn.btn-dark {
+    background: #4d2a30;
+    color: white;
+}
+
+.modal-content .btn.btn-dark:hover {
+    background: #4d2a30b0;
+    color: white
+}
+
+.modal-content .dropdown-menu {
+    width: 100%;
+}
+
+.modal-content .actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.modal-content .actions .btn {
+    width: 48%;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .modal-content .actions .btn {
+        width: 100%;
+    }
 }
 </style>

@@ -2,7 +2,16 @@
     <div class="report-container">
         <div class="title-container">
             <h3 style="color: #4D2A30;">수입/지출 리포트</h3>
-            <h5>{{ currentYear }}년 {{ currentMonth }}월 </h5>
+            <div class="date-selector">
+                <label for="year">년도: </label>
+                <select id="year" v-model="selectedYear">
+                    <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+                </select>
+                <label for="month">월: </label>
+                <select id="month" v-model="selectedMonth">
+                    <option v-for="month in availableMonths" :key="month" :value="month">{{ month }}</option>
+                </select>
+            </div>
         </div>
         <div class="chart-container">
             <canvas ref="lineChart"></canvas>
@@ -11,7 +20,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import axios from 'axios';
 
@@ -19,37 +28,39 @@ export default {
     setup() {
         Chart.register(...registerables);
         const lineChart = ref(null);
-        const now = new Date(); // 현재 날짜를 가져옴
-        const currentYear = ref(now.getFullYear());
-        const currentMonth = ref(now.getMonth() + 1);
-        const daysInMonth = getDaysInMonth(currentYear.value, currentMonth.value - 1); // 현재 월의 전체 일수를 계산
+        const selectedYear = ref(new Date().getFullYear());
+        const selectedMonth = ref(new Date().getMonth() + 1);
+        const availableYears = ref(Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i));
+        const availableMonths = ref(Array.from({ length: 12 }, (_, i) => i + 1));
 
         // 현재 월의 전체 일수를 계산하는 함수
         function getDaysInMonth(year, month) {
-            return new Date(year, month + 1, 0).getDate();
+            return new Date(year, month, 0).getDate();
         }
 
         // 일별 라벨을 생성하는 함수
-        function generateDailyLabels() {
+        function generateDailyLabels(year, month) {
+            const daysInMonth = getDaysInMonth(year, month);
             return Array.from({ length: daysInMonth }, (_, i) => `${i + 1}일`);
         }
 
         // 수입 및 지출 데이터를 가져오는 함수
-        async function fetchDataByType(type) {
+        async function fetchDataByType(year, month, type) {
             const response = await axios.get('http://localhost:3001/comes');
             const filteredData = response.data.filter((item) => {
                 const itemDate = new Date(item.date);
                 return (
-                    itemDate.getFullYear() === currentYear.value &&
-                    itemDate.getMonth() === currentMonth.value - 1 &&
+                    itemDate.getFullYear() === year &&
+                    itemDate.getMonth() === month - 1 &&
                     item.type === type
                 );
             });
-            return generateDailyData(filteredData);
+            return generateDailyData(filteredData, year, month);
         }
 
         // 일별 데이터를 생성하는 함수
-        function generateDailyData(data) {
+        function generateDailyData(data, year, month) {
+            const daysInMonth = getDaysInMonth(year, month);
             const dailyData = Array(daysInMonth).fill(0);
             data.forEach((item) => {
                 const day = new Date(item.date).getDate() - 1; // 일자를 가져와서 해당 일자의 데이터 누적
@@ -58,16 +69,26 @@ export default {
             return dailyData;
         }
 
-        // 차트 초기화 및 데이터 불러오기
-        onMounted(async () => {
-            const incomeData = await fetchDataByType(1); // 수입 데이터 가져오기
-            const outcomeData = await fetchDataByType(2); // 지출 데이터 가져오기
+        // 순수익 데이터를 계산하는 함수
+        function calculateNetIncome(incomeData, outcomeData) {
+            return incomeData.map((income, index) => income - outcomeData[index]);
+        }
+
+        // 차트 업데이트 함수
+        async function updateChart() {
+            const incomeData = await fetchDataByType(selectedYear.value, selectedMonth.value, 1); // 수입 데이터 가져오기
+            const outcomeData = await fetchDataByType(selectedYear.value, selectedMonth.value, 2); // 지출 데이터 가져오기
+            const netIncomeData = calculateNetIncome(incomeData, outcomeData); // 순수익 데이터 계산하기
 
             const ctx = lineChart.value.getContext('2d');
-            new Chart(ctx, {
+            if (lineChart.value.chart) {
+                lineChart.value.chart.destroy();
+            }
+
+            lineChart.value.chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: generateDailyLabels(), // 일별 라벨 생성 함수
+                    labels: generateDailyLabels(selectedYear.value, selectedMonth.value), // 일별 라벨 생성 함수
                     datasets: [
                         {
                             label: '수입',
@@ -79,6 +100,12 @@ export default {
                             label: '지출',
                             data: outcomeData,
                             borderColor: '#d992c9',
+                            fill: false,
+                        },
+                        {
+                            label: '순수익',
+                            data: netIncomeData,
+                            borderColor: '#4caf50',
                             fill: false,
                         },
                     ],
@@ -103,11 +130,21 @@ export default {
                     },
                 },
             });
+        }
+
+        // 선택된 년도와 월이 변경될 때마다 차트 업데이트
+        watch([selectedYear, selectedMonth], updateChart);
+
+        // 초기 차트 설정
+        onMounted(() => {
+            updateChart();
         });
 
         return {
-            currentMonth,
-            currentYear,
+            selectedYear,
+            selectedMonth,
+            availableYears,
+            availableMonths,
             lineChart,
         };
     },
@@ -124,6 +161,19 @@ export default {
 .title-container {
     margin: 20px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date-selector label {
+    margin-right: 5px;
 }
 
 .chart-container {

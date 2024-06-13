@@ -104,7 +104,7 @@
                   to="/user/setting"
                   class="d-flex text-black text-decoration-none mx-3"
                   >
-                  <font-awesome-icon icon="fa-solid fa-gear" />
+                  <font-awesome-icon icon="fa-solid fa-gear" class="fs-4" />
                 </RouterLink>
               </span>
             </div>
@@ -139,17 +139,6 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-div {
-  font-family: 'Pretendard-Regular', cursive;
-}
-
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
 .bg-nav {
   background-color: #f5ceb4;
 }

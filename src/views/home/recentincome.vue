@@ -14,7 +14,7 @@
     </ul>
   </div>
 
-    <IncomeCreate :isVisible="openModal1" @close="closeCreateModal" />
+  <IncomeCreate :isVisible="openModal1" @close="closeCreateModal" @refresh="refreshData"/>
  
   <!-- </div> -->
 </template>
@@ -52,11 +52,15 @@ export default {
       openModal1.value = false;
     };
 
+    const refreshData = () => {
+      loadTotal();
+    };
+
     onMounted(() => {
       loadTotal();
     });
 
-    return { todoList, openModal1, openCreateModal, closeCreateModal };
+    return { todoList, openModal1, openCreateModal, closeCreateModal, refreshData};
   }
 }
 </script>

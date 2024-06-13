@@ -1,27 +1,27 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useTransactionStore = defineStore('transaction', {
     state: () => ({
-        users: {id:0, name:"", email:"", password:"", avatar:""},
-        categorys: {id:0, type:0, typename:""},
-        comes: {id:0, users_id:0, type:0, title:"", category_id:0, money:0, method:"", memo:"", date:""},
-        currentComeId: 101
-      }),
+        users: { id: 0, name: "", email: "", password: "", avatar: "" },
+        categories: { id: 0, type: 0, typename: "" },
+        comes: { id: 0, users_id: 0, type: 0, title: "", category_id: 0, money: 0, method: "", memo: "", date: "" },
+        currentComeId: -1
+    }),
 
     actions: {
         async fetchData() {
             try {
-              const [usersResponse, categorysResponse, comesResponse] = await Promise.all([
-                axios.get(`http://localhost:3001/users`),
-                axios.get(`http://localhost:3001/categorys`),
-                axios.get(`http://localhost:3001/comes`),
-              ]);
-              this.users = usersResponse.data;
-              this.categorys = categorysResponse.data;
-              this.comes = comesResponse.data;
+                const [usersResponse, categoriesResponse, comesResponse] = await Promise.all([
+                    axios.get(`http://localhost:3001/users`),
+                    axios.get(`http://localhost:3001/categories`),
+                    axios.get(`http://localhost:3001/comes`),
+                ]);
+                this.users = usersResponse.data;
+                this.categories = categoriesResponse.data;
+                this.comes = comesResponse.data;
             } catch (error) {
-              console.error('There was an error fetching the data!', error);
+                console.error('There was an error fetching the data!', error);
             }
         },
 
@@ -39,8 +39,17 @@ export const useTransactionStore = defineStore('transaction', {
         // Read
         async getCome(id) {
             try {
-                const response = await axios.get(`http://localhost:3001/comes?${id}`);
-                return response.data[id-1]; //데이터를 배열로 보내주고 있음!
+                const response = await axios.get(`http://localhost:3001/comes/${id}`);
+                return response.data; //데이터를 배열로 보내주고 있음!
+            } catch (error) {
+                console.error('There was an error fetching the come!', error);
+            }
+        },
+
+        async getCategories(id) {
+            try {
+                const response = await axios.get(`http://localhost:3001/categories/${id}`);
+                return response.data; //데이터를 배열로 보내주고 있음!
             } catch (error) {
                 console.error('There was an error fetching the come!', error);
             }

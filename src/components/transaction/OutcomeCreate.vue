@@ -248,6 +248,31 @@ const closeModal = () => {
     margin: 5px 0;
 }
 
+/* 스크롤바 css */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    visibility: hidden; /* 스크롤바 숨기기 */
+}
+
+.modal-content:hover::-webkit-scrollbar-thumb {
+    visibility: visible; /* 호버 시 스크롤바 보이게 */
+}
+
+.modal-content:hover::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 @media (max-width: 768px) {
     .modal-content {
         width: 90%;

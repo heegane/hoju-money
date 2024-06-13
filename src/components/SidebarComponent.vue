@@ -1,16 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-nav">
+      <div class="sidebar col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-nav">
         <div
           class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
         >
-          <div
-            class="d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-black text-decoration-none"
+        <RouterLink
+          to="/home"
+          class="nav-link d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-black text-decoration-none"
           >
-            <img src="@/assets/logo_badge.png" width="50" alt="" />
-            <span class="fs-5 d-none d-sm-inline title-text">호주머니</span>
-          </div>
+          <img src="@/assets/logo_badge.png" width="50" alt="" />
+            <span class="mx-1 fs-5 d-none d-sm-inline title-text">호주머니</span>
+        </RouterLink>
           <ul
             class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
             id="menu"
@@ -22,8 +23,7 @@
                   class="nav-link align-middle px-0 ms-1 d-none d-sm-inline text-black fw-bold"
                   >
                   <font-awesome-icon icon="fa-solid fa-house" /> Home
-                </RouterLink
-                >
+                </RouterLink>
               </div>
             </li>
             <li class="nav-item mt-3 w-100">
@@ -84,7 +84,7 @@
           <hr />
           <div class="pb-4 w-100">
             <div
-              class="d-flex align-items-center text-black text-decoration-none"
+              class="d-flex justify-content-between align-items-center text-black text-decoration-none"
             >
               <button
                 class="btn p-0 d-flex align-items-center"
@@ -97,7 +97,7 @@
                   height="40"
                   class="rounded"
                 />
-                <span class="d-none d-sm-inline mx-1">{{ userInfo.name }}</span>
+                <span class="d-none d-sm-inline mx-2">{{ userInfo.name }}</span>
               </button>
               <span>
                 <RouterLink
@@ -154,8 +154,15 @@ div {
   background-color: #f5ceb4;
 }
 
+.sidebar {
+  background-color: #f5ceb4;
+  overflow-y: auto; /* 사이드바에 스크롤바 추가 */
+}
+
 .view-box {
   background-color: #fffdf6;
+  overflow-y: auto; /* RouterView에 스크롤바 추가 */
+  height: 100vh; /* 높이를 화면 전체로 설정 */
 }
 .title-text {
   color: #4D2A30;

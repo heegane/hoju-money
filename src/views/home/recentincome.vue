@@ -13,9 +13,9 @@
       </li>
     </ul>
   </div>
-  <div class="modal-view">
+
     <IncomeCreate :isVisible="openModal1" @close="closeCreateModal" />
-  </div>
+ 
   <!-- </div> -->
 </template>
 

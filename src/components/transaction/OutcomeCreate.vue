@@ -92,7 +92,7 @@ const methods = ref([]);
 
 //카테고리
 const selectCategory = (id, name) => {
-    outcome.value.category_id = id;
+    outcome.value.category_id = id.number;
     selectedCategoryName.value = name;
 };
 
@@ -104,7 +104,12 @@ const selectMethod = (method) => {
 
 //트랜젝션 저장 
 const submitForm = async () => {
-    await store.createCome(outcome.value);
+    const formattedDate = formatDate(outcome.value.date);
+    const outcomeData = {
+        ...outcome.value,
+        date: formattedDate
+    };
+    await store.updateCome(outcomeData);
     resetForm(); //후에 데이터 생성을 위해 폼비우기
 };
 

@@ -92,7 +92,7 @@ const methods = ref([]);
 
 //카테고리
 const selectCategory = (id, name) => {
-    income.value.category_id = id;
+    income.value.category_id = id.number;
     selectedCategoryName.value = name;
 };
 
@@ -104,7 +104,12 @@ const selectMethod = (method) => {
 
 //트랜젝션 저장 
 const submitForm = async () => {
-    await store.createCome(income.value);
+    const formattedDate = formatDate(income.value.date);
+    const incomeData = {
+        ...income.value,
+        date: formattedDate
+    };
+    await store.updateCome(incomeData);
     resetForm(); //후에 데이터 생성을 위해 폼비우기
 };
 
@@ -122,6 +127,20 @@ const resetForm = () => {
     };
     selectedCategoryName.value = '수입 카테고리 선택';
     selectedMethodName.value = '입금 계좌 선택';
+};
+
+//날짜 데이터 포맷
+const formatDate = (date) => {
+    const pad = (n) => (n < 10 ? '0' + n : n);
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
 const closeModal = () => {

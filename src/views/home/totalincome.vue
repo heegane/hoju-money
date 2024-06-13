@@ -9,10 +9,11 @@
     </div>
   </template>
   
-  <style scoped>
-  .card {
+<style scoped>
+.card {
     display: flex;
-    flex-direction: column; /* 요소들을 세로로 정렬하기 위해 컬럼 방향으로 설정합니다. */
+    flex-direction: column;
+    /* 요소들을 세로로 정렬하기 위해 컬럼 방향으로 설정합니다. */
     justify-content: center;
     align-items: center;
     background: #fff;
@@ -20,20 +21,23 @@
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
-  
-  .report-header {
-    margin-bottom: 20px; /* 레포트 헤더와 차트 사이에 간격 추가 */
-  }
-  
-  .chart-container {
+}
+
+.report-header {
+    margin-bottom: 20px;
+    /* 레포트 헤더와 차트 사이에 간격 추가 */
+}
+
+.chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vh; /* 전체 화면의 75% */
-    width: 100%; /* 차트 컨테이너의 너비를 100%로 설정하여 수평 중앙 정렬을 유지합니다. */
-  }
-  </style>
+    height: 30vh;
+    /* 전체 화면의 75% */
+    width: 16vw;
+    /* 차트 컨테이너의 너비를 100%로 설정하여 수평 중앙 정렬을 유지합니다. */
+}
+</style>
   
 <script>
 import { ref, onMounted,reactive } from 'vue';

@@ -2,7 +2,7 @@
     <div class="card">
       <div class="header">
         <h3 style="color: #4D2A30; font-size: 30px;">최근 지출 목록</h3>
-      <router-link to="/login" class="add-button">+</router-link>
+        <button class="add-button" @click="openCreateModal">+</button>
     </div>
       <ul>
       <li v-for="(item, index) in todoList" :key="index" class="income-item">
@@ -12,12 +12,17 @@
       </li>
     </ul>
     </div>
+
+    <OutcomeCreate :isVisible="openModal1" @close="closeCreateModal" />
+ 
   </template>
   
   <script>
-  import { reactive,onMounted} from 'vue';
+  import { ref,reactive,onMounted} from 'vue';
+  import OutcomeCreate from '@/components/transaction/OutcomeCreate.vue'
   import axios from 'axios';
   export default {
+    components: {OutcomeCreate},
       //객체참조이고 setup안에서 let해놓으면 안된다.
       //todoList=response.data;
       //todoList상수를 선언했으니까 todoList=response.data; 불가능
@@ -30,7 +35,7 @@
       setup()
       {
           let todoList=reactive([]);
-        //   let totalIncome;
+        //   let totalOutcome;
         //   let totalOutcome;
         
           const loadTotal=()=>{
@@ -58,6 +63,15 @@
           
   
           }
+          const openModal1 = ref(false);
+
+    const openCreateModal = () => {
+      openModal1.value = true;
+    };
+
+    const closeCreateModal = () => {
+      openModal1.value = false;
+    };
   
   onMounted(()=>{
       
@@ -65,7 +79,7 @@
     
   })
           //함수호출
-          return {todoList};
+          return {todoList, openModal1, openCreateModal, closeCreateModal};
       }
   }
   </script>

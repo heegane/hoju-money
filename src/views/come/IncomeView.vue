@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="btn-div mt-3">
-      <button type="button" class="btn btn-primary" @click="openDetailModal">Create</button>
+      <button type="button" class="btn btn-primary" @click="openCreateModal">Create</button>
     </div>
     <div class="list-div mt-2">
       <table class="table">
@@ -118,11 +118,15 @@
     <div class="modal-view">
       <IncomeUpdateDelete :isVisible="openModal" @close="closeModal"/>
     </div>
+    <div class="modal-view">
+      <IncomeCreate :isVisible="openModal1" @close="closeCreateModal"/>
+    </div>
   </div>
 </template>
 <script>
 import DatePicker from 'vue3-datepicker';
 import IncomeUpdateDelete from '@/components/transaction/IncomeUpdateDelete.vue'
+import IncomeCreate from '@/components/transaction/IncomeCreate.vue'
 import { useRoute } from 'vue-router';
 import { onMounted, reactive, ref, toRaw } from 'vue';
 import { useCategoriesStore } from '@/store/categories';
@@ -130,7 +134,7 @@ import { useComesStore } from '@/store/comes';
 import { useTransactionStore } from '@/store/transaction';
 
 export default {
-    components: {DatePicker, IncomeUpdateDelete},
+    components: {DatePicker, IncomeUpdateDelete, IncomeCreate},
     setup() {
         const route = useRoute();
         const today = new Date(); // 현재 날짜 저장
@@ -160,6 +164,16 @@ export default {
 
         const closeModal = () => {
           openModal.value = false;
+        };
+
+        const openModal1 = ref(false);
+
+        const openCreateModal = () => {
+          openModal1.value = true;
+        };
+
+        const closeCreateModal = () => {
+          openModal1.value = false;
         };
 
         // data bind func
@@ -349,7 +363,7 @@ export default {
 
         }
 
-        return {openModal, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal};
+        return {openModal, openModal1, onChangeDate, onChangeMonth, onChangeStartDate, onChangeEndDate, prevMonth, nextMonth, date, month, startDate, endDate, dateType, pageState, totalPageCount, pageData, categoriesStore, comesStore, onChangePage, onPrevPage, onNextPage, categorySelect, onChangeDateType, onChangeCategory, openDetailModal, closeModal, openCreateModal, closeCreateModal};
     }
 }
 </script>

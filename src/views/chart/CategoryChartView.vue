@@ -2,7 +2,16 @@
     <div class="report-container">
         <div class="title-container">
             <h3 style="color: #4D2A30;">카테고리별 리포트</h3>
-            <h5>{{ currentYear }}년 {{ currentMonth }}월 </h5>
+            <div class="date-selector">
+                <label for="year">년도: </label>
+                <select id="year" v-model="selectedYear">
+                    <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+                </select>
+                <label for="month">월: </label>
+                <select id="month" v-model="selectedMonth">
+                    <option v-for="month in availableMonths" :key="month" :value="month">{{ month }}</option>
+                </select>
+            </div>
         </div>
         <div class="chart-container">
             <canvas id="categoryChart"></canvas>
@@ -11,7 +20,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 
@@ -19,8 +28,10 @@ export default {
     setup() {
         const chart = ref(null);
         const categories = ref({});
-        const currentYear = ref(new Date().getFullYear());
-        const currentMonth = ref(new Date().getMonth() + 1);
+        const selectedYear = ref(new Date().getFullYear());
+        const selectedMonth = ref(new Date().getMonth() + 1);
+        const availableYears = ref(Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i));
+        const availableMonths = ref(Array.from({ length: 12 }, (_, i) => i + 1));
 
         // Chart.js의 모든 요소를 등록
         Chart.register(...registerables);
@@ -29,7 +40,7 @@ export default {
         const filterCurrentMonthData = (data) => {
             return data.filter(item => {
                 const itemDate = new Date(item.date);
-                return itemDate.getFullYear() === currentYear.value && itemDate.getMonth() + 1 === currentMonth.value && item.category_id >= 7 && item.category_id <= 13;
+                return itemDate.getFullYear() === selectedYear.value && itemDate.getMonth() + 1 === selectedMonth.value && item.category_id >= 7 && item.category_id <= 13;
             });
         };
 
@@ -124,17 +135,24 @@ export default {
             }
         };
 
+        watch([selectedYear, selectedMonth], fetchData);
+
         onMounted(() => {
             fetchData();
         });
 
         return {
-            currentMonth,
-            currentYear
+            selectedYear,
+            selectedMonth,
+            availableYears,
+            availableMonths,
+            currentYear: selectedYear,
+            currentMonth: selectedMonth,
         };
     }
 };
 </script>
+
 <style scoped>
 .report-container {
     background-color: white;
@@ -145,6 +163,19 @@ export default {
 .title-container {
     margin: 20px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date-selector label {
+    margin-right: 5px;
 }
 
 .chart-container {

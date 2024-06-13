@@ -17,8 +17,8 @@
           width="100"
         />
       </div>
-      <UserDetailReadComponent v-if="isReadMode" :isReadMode="isReadMode" :totalMoney="money.totalMoney" @updateMode="switchMode" />
-      <UserDetailUpdateComponent v-else :isReadMode="isReadMode" :totalMoney="money.totalMoney" @updateMode="switchMode"  />
+      <UserDetailReadComponent v-if="isReadMode" :isReadMode="isReadMode" :totalMoney="moneyInfo.totalMoney" @updateMode="switchMode" />
+      <UserDetailUpdateComponent v-else :isReadMode="isReadMode" :totalMoney="moneyInfo.totalMoney" @updateMode="switchMode"  />
     </div>
   </div>
 </template>
@@ -28,12 +28,15 @@ import { useUserInfoStore } from '@/store/user';
 import UserDetailReadComponent from './UserDetailReadComponent.vue';
 import UserDetailUpdateComponent from './UserDetailUpdateComponent.vue';
 import { onMounted, ref } from 'vue';
-import { useDataLoader } from '@/store/asset';
+import { useMoneyInfoStore } from '@/store/asset';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const { todoList, money, loadData, loadTotal } = useDataLoader();
+// const { todoList, money, loadData, loadTotal } = useDataLoader();
+
+const moneyInfoStore = useMoneyInfoStore();
+const moneyInfo = moneyInfoStore.moneyInfo;
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;
@@ -60,10 +63,6 @@ const isReadMode = ref(true);
 const switchMode = (mode) => {
   isReadMode.value = mode;
 }
-
-onMounted(() => {
-  loadTotal();
-});
 </script>
 
 <style scoped>

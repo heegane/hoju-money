@@ -1,15 +1,19 @@
 <template>
-    <div class="card">
-      <div class="report-header">
-        <h2 style="color: #4D2A30; font-size: 34px;">총수익: {{money.incomeMoney.toLocaleString()}}원</h2>
-      </div>
-      <div class="chart-container" >
-        <canvas id="categoryChart2" style="margin-left: 30px;"></canvas>
-      </div>
+<div class="card">
+    <div class="report-header">
+        <span class="font-brown fs-4 fw-bolder">총 수익 {{moneyInfo.incomeMoney.toLocaleString()}}원</span>
     </div>
+    <div class="chart-container" >
+        <canvas id="categoryChart2" style="margin-left: 30px;"></canvas>
+    </div>
+</div>
   </template>
   
 <style scoped>
+.font-brown {
+    color: #4D2A30;
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -39,132 +43,108 @@
 }
 </style>
   
-<script>
-import { ref, onMounted,reactive } from 'vue';
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
-export default {
-    setup() {
-        const chart = ref(null);
-        const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
-        const categories = ref({});
-        // 현재 달을 가져오는 함수
-        const getCurrentMonth = () => {
-            const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-            return months[new Date().getMonth()];
-        };
-        // Chart.js의 모든 요소를 등록
-        Chart.register(...registerables);
-        const fetchData = async () => {
-            try {
-                const [comesResponse, categoriesResponse] = await Promise.all([
-                    axios.get('http://localhost:3001/comes'),
-                    axios.get('http://localhost:3001/categories')
-                ]);
-                const comesData = comesResponse.data;
-                let income = comesData.reduce((total, currentValue) => {
-                        if (currentValue.type === 1) {
-                            return total + currentValue.money;
-                        }
-                        return total;
-                       
+import { useMoneyInfoStore } from '@/store/asset';
 
-                }, 0);
-                money.incomeMoney = income;
-               
+const moneyInfoStore = useMoneyInfoStore();
+const moneyInfo = moneyInfoStore.moneyInfo;
 
-                const categoriesData = categoriesResponse.data;
-                // 현재 달을 가져옵니다.
-                // const currentYear = new Date().getFullYear();
-                // const currentMonth = new Date().getMonth() + 1;
-                // category_id가 7부터 13까지이고 현재 달 데이터인 경우 필터링합니다.
-                const filteredData = comesData.filter(item => {
-                    // const itemYear = new Date(item.date).getFullYear();
-                    // const itemMonth = new Date(item.date).getMonth() + 1;
-                    return item.category_id >= 1 && item.category_id <= 6;
-                });
+const chart = ref(null);
+const categories = ref({});
 
-                // category_id별 데이터 그룹화
-                const categoryCounts = filteredData.reduce((acc, item) => {
-                    acc[item.category_id] = (acc[item.category_id] || 0) + 1;
-                    return acc;
-                }, {});
-                // 차트 데이터 준비
-                const labels = Object.keys(categoryCounts);
-                const counts = Object.values(categoryCounts);
-                // category 데이터 매핑
-                categories.value = categoriesData.reduce((acc, category) => {
-                    acc[category.id] = category.typename;
-                    return acc;
-                }, {});
-                // 차트 생성
-                if (chart.value) {
-                    chart.value.destroy();
-                }
-                const ctx = document.getElementById('categoryChart2').getContext('2d');
-                chart.value = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        // labels: labels.map(id => categories.value[id]), // 실제 라벨 데이터
-                        datasets: [{
-                            data: counts,
-                            backgroundColor: [
-                                '#8898DA',
-                                '#D992C9',
-                                '#E2AEB1',
-                                '#E2D1AB',
-                                '#E6E7BC',
-                                '#A8C46E',
-                                '#B2BAC9',
-                            ]
-                        }]
+// 현재 달을 가져오는 함수
+const getCurrentMonth = () => {
+    const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+    return months[new Date().getMonth()];
+};
+
+// Chart.js의 모든 요소를 등록
+Chart.register(...registerables);
+
+const fetchData = async () => {
+    try {
+        const [comesResponse, categoriesResponse] = await Promise.all([
+            axios.get('http://localhost:3001/comes'),
+            axios.get('http://localhost:3001/categories')
+        ]);
+
+        const comesData = comesResponse.data;
+
+        // 카테고리 데이터 필터링 및 그룹화
+        const filteredData = comesData.filter(item => item.category_id >= 1 && item.category_id <= 6);
+        const categoryCounts = filteredData.reduce((acc, item) => {
+            acc[item.category_id] = (acc[item.category_id] || 0) + 1;
+            return acc;
+        }, {});
+
+        // 차트 데이터 준비
+        const labels = Object.keys(categoryCounts);
+        const counts = Object.values(categoryCounts);
+
+        // 카테고리 데이터 매핑
+        categories.value = categoriesResponse.data.reduce((acc, category) => {
+            acc[category.id] = category.typename;
+            return acc;
+        }, {});
+
+        // 차트 생성
+        if (chart.value) {
+            chart.value.destroy();
+        }
+
+        const ctx = document.getElementById('categoryChart2').getContext('2d');
+        chart.value = new Chart(ctx, {
+            type: 'doughnut', // 도넛 그래프로 변경
+            data: {
+                labels: labels.map(id => categories.value[id]), // 라벨 데이터
+                datasets: [{
+                    data: counts,
+                    backgroundColor: [
+                        '#8898DA',
+                        '#D992C9',
+                        '#E2AEB1',
+                        '#E2D1AB',
+                        '#E6E7BC',
+                        '#A8C46E',
+                        '#B2BAC9',
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                elements: {
+                    arc: {
+                        borderWidth: 1
+                    }
+                },
+                cutout: '80%', // 도넛의 중심에 구멍을 남김
+                plugins: {
+                    legend: {
+                        display: false // 범례 숨기기
                     },
-                    options: {
-                        responsive: true,
-                        elements: {
-                        arc: {
-                                borderWidth: 1
-                            }
-                        },
-                        legend: {
-                            display: false // 범례 숨기기
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'right', // 라벨을 도넛 오른쪽에 위치
-                                labels: {
-                                    padding: 20 // 라벨의 내부 간격 설정
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        const total = context.dataset.data.reduce((acc, value) => acc + value, 0);
-                                        const category=categories.value[labels[context.dataIndex]];
-                                        const currentValue = context.dataset.data[context.dataIndex];
-                                        const percentage = ((currentValue / total) * 100).toFixed(2);
-                                        return `${category}${percentage}%`;
-                                    }
-                                }
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const total = context.dataset.data.reduce((acc, value) => acc + value, 0);
+                                const category = categories.value[labels[context.dataIndex]];
+                                const currentValue = context.dataset.data[context.dataIndex];
+                                const percentage = ((currentValue / total) * 100).toFixed(2);
+                                return `${category}: ${percentage}%`;
                             }
                         }
                     }
-                });
-            } catch (error) {
-                console.error('Error fetching data:', error);
+                }
             }
-            
-        };
-        
-
-    
-
-        onMounted(() => {
-            fetchData();
         });
-        return {
-            currentMonth: getCurrentMonth(),money // 현재 달 데이터 전달, 
-        };
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 };
+
+onMounted(() => {
+    fetchData();
+});
 </script>

@@ -6,76 +6,29 @@
         <img :src="userInfo.avatar" class="avatar">
       </div>
       <div>
-        <h2 style="color: #4D2A30; font-size: 25px;">{{ userInfo.name }}님 안녕하세요?</h2>
-        <p class="custom-text">{{ userInfo.email }}</p>
-        <p style="color: #4D2A30; font-size: 22px;">총자산: {{money.totalMoney.toLocaleString()}}원</p>
+        <p class="font-brown fs-3 fw-bolder">{{ userInfo.name }}님 안녕하세요?</p>
+        <p class="font-brown fs-5">{{ userInfo.email }}</p>
+        <p class="font-brown fs-5 fw-bold">총자산: {{ moneyInfo.totalMoney.toLocaleString() }}원</p>
       </div>
     </div>
   </div>
 </div>
 </template>
 
-<script>
-import { ref, reactive,onMounted} from 'vue';
-import axios from 'axios';
+<script setup>
 import { useUserInfoStore } from '@/store/user';
+import { useMoneyInfoStore } from '@/store/asset';
 
-export default {
-  setup() {
-    const userInfoStore = useUserInfoStore();
-    const userInfo = userInfoStore.userInfo;
-    // let totalIncome;
-    // let totalOutcome;
-    const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
-
-    const loadTotal = () => {
-      axios.get("http://localhost:3001/comes")
-      .then(function (response) {
-        let income = response.data.reduce((total, currentValue) => {
-          if (currentValue.type === 1) {
-            return total + currentValue.money;
-          }
-          return total;
-        }, 0);
-
-        let outcome = response.data.reduce((total, currentValue) => {
-          if (currentValue.type === 2) {
-              return total + currentValue.money;
-          }
-          return total;
-        }, 0);
-
-        money.incomeMoney = income;
-        money.outcomeMoney = outcome;
-        money.totalMoney =income-outcome; 
-        
-        // 성공 핸들링
-        console.log(money.totalMoney);
-        console.log(money.incomeMoney);
-        console.log(money.outcomeMoney);
-        // 컴포즈티브 방식
-        // 컴포즈티브 방식
-        // response.data.forEach(element => {
-        //   userDetail.push(response.data);
-        // });
-      })
-      .catch(function (error) {
-          // 에러 핸들링
-          console.log(error);
-      });
-    }
-
-    onMounted(()=>{
-      loadTotal();
-    });
-
-    return { money, userInfo };
-  }
-}
+const userInfoStore = useUserInfoStore();
+const userInfo = userInfoStore.userInfo;
+const moneyInfoStore = useMoneyInfoStore();
+const moneyInfo = moneyInfoStore.moneyInfo;
 </script>
   
 <style scoped>
-
+.font-brown {
+  color: #4D2A30;
+}
 .card {
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */

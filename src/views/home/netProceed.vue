@@ -1,7 +1,13 @@
 <template>
 <div class="card">
     <div class="report-header">
-      <span class="font-brown fs-4 fw-bolder">총 수익 {{moneyInfo.totalMoney.toLocaleString()}}원</span>
+      <div class="font-brown fs-4 fw-bolder">순 이익</div>
+      <div class="font-brown fs-5">
+        <span>{{moneyInfo.totalMoney.toLocaleString()}}원</span>
+        <span v-if="parseInt(moneyInfo.totalMoney) > 0" style=""> ▲</span>
+        <span v-else-if="moneyInfo.totalMoney < 0"> ▼</span>
+        <span v-else> -</span>
+      </div>
     </div>
 </div>
 </template>

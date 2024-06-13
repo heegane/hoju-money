@@ -77,6 +77,7 @@ export default {
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     elements: {
                         arc: {
                             borderWidth: 1

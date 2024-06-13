@@ -97,7 +97,7 @@
                   height="40"
                   class="rounded"
                 />
-                <span class="d-none d-sm-inline mx-2">{{ userInfo.name }}</span>
+                <span class="d-none d-sm-inline mx-2 fw-bold">{{ userInfo.name }}</span>
               </button>
               <span>
                 <RouterLink

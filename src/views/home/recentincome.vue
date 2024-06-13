@@ -1,22 +1,18 @@
 <template>
-  <!-- <div class="container-fluid"> -->
-  <div class="card">
-    <div class="header">
-      <h3 style="color: #4D2A30; font-size: 30px;">최근 수입 목록</h3>
-      <button class="add-button" @click="openCreateModal">+</button>
-    </div>
-    <ul>
-      <li v-for="(item, index) in todoList" :key="index" class="income-item">
-        <div class="left" style="color: #4D2A30; font-size: 18px;">{{ item.date.split(' ')[0] }}</div>
-        <div class="center" style="color: #4D2A30; font-size: 18px;">{{ item.title }}</div>
-        <div class="right" style="color: #4D2A30; font-size: 18px;">{{ item.money.toLocaleString() }}원</div>
-      </li>
-    </ul>
+<div class="card">
+  <div class="header">
+    <span class="font-brown fs-5 fw-bolder">최근 수입 목록</span>
+    <button class="add-button" @click="openCreateModal">+</button>
   </div>
-
-  <IncomeCreate :isVisible="openModal1" @close="closeCreateModal" @refresh="refreshData"/>
- 
-  <!-- </div> -->
+  <ul>
+    <li v-for="(item, index) in useHistory" :key="index" class="income-item">
+      <div class="left" style="color: #4D2A30; font-size: 18px;">{{ item.date.split(' ')[0] }}</div>
+      <div class="center" style="color: #4D2A30; font-size: 18px;">{{ item.title }}</div>
+      <div class="right" style="color: #4D2A30; font-size: 18px;">{{ item.money.toLocaleString() }}원</div>
+    </li>
+  </ul>
+</div>
+<IncomeCreate :isVisible="openModal1" @close="closeCreateModal" @refresh="refreshData"/>
 </template>
 
 <script>
@@ -26,16 +22,17 @@ import axios from 'axios';
 
 export default {
   components: {IncomeCreate},
+  
   setup() {
-    let todoList = reactive([]);
+    const useHistory = reactive([]);
 
     const loadTotal = () => {
       axios.get("http://localhost:3001/comes")
         .then(function (response) {
           const typeOnes = response.data.filter(item => item.type == 1);
           const sortedData = typeOnes.sort((a, b) => new Date(b.date) - new Date(a.date));
-          todoList.splice(0);
-          todoList.push(...sortedData.slice(0, 5));
+          useHistory.splice(0);
+          useHistory.push(...sortedData.slice(0, 5));
         })
         .catch(function (error) {
           console.log(error);
@@ -60,12 +57,15 @@ export default {
       loadTotal();
     });
 
-    return { todoList, openModal1, openCreateModal, closeCreateModal, refreshData};
+    return { useHistory, openModal1, openCreateModal, closeCreateModal, refreshData };
   }
 }
 </script>
 
 <style scoped>
+.font-brown {
+  color: #4D2A30;
+}
 .card {
   background: #fff;
   padding: 20px;
@@ -76,6 +76,7 @@ export default {
 ul {
   list-style-type: none;
   padding: 0;
+  margin-bottom: 0;
 }
 li {
   margin: 5px 0;
@@ -86,8 +87,9 @@ li {
   align-items: center;
 }
 .add-button {
+  padding-bottom: 3px;
   font-size: 24px;
-  background-color: #2b8ec8;
+  background-color: #4D2A30;
   color: white;
   border: none;
   border-radius: 50%;

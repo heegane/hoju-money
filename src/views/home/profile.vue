@@ -1,84 +1,37 @@
 <template>
 <div>
-  <div class="card btn">
-    <div style="display:flex;">
+  <div class="card btn py-4">
+    <div class="d-flex align-items-center">
       <div>
-        <img :src="userInfo.avatar" class="avatar">
+        <img :src="userInfo.avatar" class="avatar mx-4">
       </div>
-      <div>
-        <h2 style="color: #4D2A30; font-size: 25px;">{{ userInfo.name }}님 안녕하세요?</h2>
-        <p class="custom-text">{{ userInfo.email }}</p>
-        <p style="color: #4D2A30; font-size: 22px;">총자산: {{money.totalMoney.toLocaleString()}}원</p>
+      <div class="text-left mx-5">
+        <div class="font-brown fs-3 fw-bolder">반가워요 {{ userInfo.name }}님!</div>
+        <div class="font-brown fs-5">{{ userInfo.email }}</div>
+        <div class="font-brown fs-5 fw-bold">총자산: {{ moneyInfo.totalMoney.toLocaleString() }}원</div>
       </div>
     </div>
   </div>
 </div>
 </template>
 
-<script>
-import { ref, reactive,onMounted} from 'vue';
-import axios from 'axios';
+<script setup>
 import { useUserInfoStore } from '@/store/user';
+import { useMoneyInfoStore } from '@/store/asset';
 
-export default {
-  setup() {
-    const userInfoStore = useUserInfoStore();
-    const userInfo = userInfoStore.userInfo;
-    // let totalIncome;
-    // let totalOutcome;
-    const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
-
-    const loadTotal = () => {
-      axios.get("http://localhost:3001/comes")
-      .then(function (response) {
-        let income = response.data.reduce((total, currentValue) => {
-          if (currentValue.type === 1) {
-            return total + currentValue.money;
-          }
-          return total;
-        }, 0);
-
-        let outcome = response.data.reduce((total, currentValue) => {
-          if (currentValue.type === 2) {
-              return total + currentValue.money;
-          }
-          return total;
-        }, 0);
-
-        money.incomeMoney = income;
-        money.outcomeMoney = outcome;
-        money.totalMoney =income-outcome; 
-        
-        // 성공 핸들링
-        console.log(money.totalMoney);
-        console.log(money.incomeMoney);
-        console.log(money.outcomeMoney);
-        // 컴포즈티브 방식
-        // 컴포즈티브 방식
-        // response.data.forEach(element => {
-        //   userDetail.push(response.data);
-        // });
-      })
-      .catch(function (error) {
-          // 에러 핸들링
-          console.log(error);
-      });
-    }
-
-    onMounted(()=>{
-      loadTotal();
-    });
-
-    return { money, userInfo };
-  }
-}
+const userInfoStore = useUserInfoStore();
+const userInfo = userInfoStore.userInfo;
+const moneyInfoStore = useMoneyInfoStore();
+const moneyInfo = moneyInfoStore.moneyInfo;
 </script>
   
 <style scoped>
-
+.font-brown {
+  color: #4D2A30;
+}
 .card {
   display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
+  justify-content: center;
   align-items: center; /* 수직 중앙 정렬 */
   background: #fff;
   padding: 20px;
@@ -97,18 +50,4 @@ export default {
   border-radius: 50%;
   margin-right: 10px;
 }
-.no-underline {
-  text-decoration: none;
-  color: inherit;
-}
-.horizontal-layout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.custom-text {
-    color: #4D2A30 ;
-    font-size: 18px;
-}
-
 </style>

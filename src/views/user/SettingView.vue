@@ -1,5 +1,5 @@
 <template>
-<div class="mt-5 mx-5 px-5">
+<div class="mt-5 mx-5 px-5" style="background-color: white; padding-top: 40px; padding-bottom: 40px;">
     <div class="mb-5">
         <span class="fs-2">앱 데이터 설정</span>
     </div>

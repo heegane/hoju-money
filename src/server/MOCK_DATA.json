@@ -1222,7 +1222,7 @@
       "user_id": 1,
       "type": 2,
       "title": "춘리마라탕어린이대공원점",
-      "category_id": 2,
+      "category_id": 7,
       "money": 20000,
       "method": "KB 나라사랑카드",
       "memo": "",
@@ -1248,7 +1248,7 @@
       "money": 100000,
       "method": "KB 마이핏 통장",
       "memo": "히히",
-      "date": "2024-06-18 00:00:00"
+      "date": "2024-06-17 15:00:00"
     },
     {
       "id": "102",
@@ -1332,7 +1332,7 @@
       "user_id": 1,
       "type": 2,
       "title": "미식반점",
-      "category_id": 2,
+      "category_id": 7,
       "money": 12000,
       "method": "KB 마이핏 통장",
       "memo": "탕후루탕수육맛집",
@@ -1431,11 +1431,11 @@
       "user_id": 1,
       "type": 1,
       "title": "중고거래 가방",
-      "category_id": 6,
+      "category_id": 2,
       "money": 20000,
       "method": "현금",
-      "memo": "더 받을걸",
-      "date": "2024-06-28 00:00:00"
+      "memo": "더 받을걸!!",
+      "date": "2024-06-26 06:00:00"
     },
     {
       "id": "119",

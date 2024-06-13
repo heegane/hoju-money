@@ -1,7 +1,6 @@
 <template>
   <div>
-  <router-link to="/login" class="no-underline">
-    <div class="card">
+    <div class="card btn">
       <div style="display:flex;">
         <div>
         <img :src="userInfo.avatar" class="avatar">
@@ -13,104 +12,88 @@
       </div>
         </div>
     </div>
-  </router-link>
   </div>
 </template>
 
+<script>
+import { ref, reactive,onMounted} from 'vue';
+import axios from 'axios';
+import { useUserInfoStore } from '@/store/user';
 
+export default {
+  setup() {
+    const userInfoStore = useUserInfoStore();
+    const userInfo = userInfoStore.userInfo;
+    let userDetail= ref({});
+    // let totalIncome;
+    // let totalOutcome;
+    const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
+      
+    const loadData = () => {
+      axios.get("http://localhost:3001/users/1")
+      .then((response) => {
+        userDetail.value = response.data;
+      })
+      .catch(function (error) {
+          // 에러 핸들링
+          console.log(error);
+      })
+      .finally(function () {
+          // 항상 실행되는 영역
+      });
+    }
 
-  <script>
-  import { ref, reactive,onMounted} from 'vue';
-  import axios from 'axios';
-  import { useUserInfoStore } from '@/store/user';
-
-
-  export default {
-      setup()
-      {
-        const userInfoStore = useUserInfoStore();
-          const userInfo = userInfoStore.userInfo;
-          let userDetail= ref({});
-        //   let totalIncome;
-        //   let totalOutcome;
-          const money = reactive({"totalMoney":0,"incomeMoney":0,"outcomeMoney":0});
-          
-          const loadData=()=>{
-              //axios로 데이터를 불러와서 todoList에 전달한다
-              axios.get("http://localhost:3001/users/1")
-              .then((response) => {
-                userDetail.value = response.data;
-              })
-              .catch(function (error) {
-                  // 에러 핸들링
-                  console.log(error);
-              })
-              .finally(function () {
-                  // 항상 실행되는 영역
-              });
-          
-  
+    const loadTotal = () => {
+      axios.get("http://localhost:3001/comes")
+      .then(function (response) {
+        let income = response.data.reduce((total, currentValue) => {
+          if (currentValue.type === 1) {
+            return total + currentValue.money;
           }
+          return total;
+        }, 0);
 
-          const loadTotal=()=>{
-              //axios로 데이터를 불러와서 todoList에 전달한다
-              axios.get("http://localhost:3001/comes")
-              .then(function (response) {
-               
-                let income = response.data.reduce((total, currentValue) => {
-                        if (currentValue.type === 1) {
-                            return total + currentValue.money;
-                        }
-                        return total;
-                }, 0);
-
-                let outcome = response.data.reduce((total, currentValue) => {
-                        if (currentValue.type === 2) {
-                            return total + currentValue.money;
-                        }
-                        return total;
-                }, 0);
-
-
-                money.incomeMoney = income;
-                money.outcomeMoney = outcome;
-                money.totalMoney =income-outcome; 
-                
-                // 성공 핸들링
-                  console.log(money.totalMoney);
-                  console.log(money.incomeMoney);
-                  //컴포즈티브 방식
-                  console.log(money.outcomeMoney);
-                  //컴포즈티브 방식
-                  //컴포즈티브 방식
-                //   response.data.forEach(element => {
-                    //   todoList.push(response.data);
-                      
-                //   });
-              })
-              .catch(function (error) {
-                  // 에러 핸들링
-                  console.log(error);
-              })
-              .finally(function () {
-                  // 항상 실행되는 영역
-              });
-          
-  
+        let outcome = response.data.reduce((total, currentValue) => {
+          if (currentValue.type === 2) {
+              return total + currentValue.money;
           }
-  
-  onMounted(()=>{
-        loadTotal();
-          loadData(); //localhost:5173/todo/list
-    
-  })
-          //함수호출
-          return {userDetail, loadData,money,userInfo};
-      }
+          return total;
+        }, 0);
+
+        money.incomeMoney = income;
+        money.outcomeMoney = outcome;
+        money.totalMoney =income-outcome; 
+        
+        // 성공 핸들링
+        console.log(money.totalMoney);
+        console.log(money.incomeMoney);
+        console.log(money.outcomeMoney);
+        // 컴포즈티브 방식
+        // 컴포즈티브 방식
+        // response.data.forEach(element => {
+        //   userDetail.push(response.data);
+        // });
+      })
+      .catch(function (error) {
+          // 에러 핸들링
+          console.log(error);
+      })
+      .finally(function () {
+          // 항상 실행되는 영역
+      });
+    }
+
+    onMounted(()=>{
+      loadTotal();
+      loadData();
+    });
+    return {userDetail, loadData, money, userInfo};
   }
-  </script>
+}
+</script>
   
-  <style scoped>
+<style scoped>
+
 .card {
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */

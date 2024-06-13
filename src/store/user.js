@@ -22,6 +22,13 @@ export const useUserInfoStore = defineStore('userInfo', {
                 console.error(err);
             }
         },
+        async updateName() {
+            try {
+                await axios.patch(`http://localhost:3001/users/${this.userInfo.id}`, this.userInfo);
+            } catch(err) {
+                console.error(err);
+            }
+        },
         logout() {
             sessionStorage.setItem("email", "");
             sessionStorage.setItem("password", "");

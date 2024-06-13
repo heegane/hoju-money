@@ -65,11 +65,11 @@ const income = ref({
     users_id: 1,
     type: 1,
     title: '',
-    category_id: 0,
+    category_id: 1,
     money: 0,
     method: '',
     memo: '',
-    date: ''
+    date: new Date()
 });
         
 //드롭다운 항목 선택 시 선택한 항목을 보여주기 위해
@@ -123,11 +123,11 @@ const resetForm = () => {
         users_id: 1,
         type: 1,
         title: '',
-        category_id: 0,
+        category_id: 1,
         money: 0,
         method: '',
         memo: '',
-        date: ''
+        date: new Date()
     };
     selectedCategoryName.value = '수입 카테고리 선택';
     selectedMethodName.value = '입금 계좌 선택';

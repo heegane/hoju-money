@@ -1,26 +1,31 @@
 <template>
-   <!-- <div class="container-fluid"> -->
+  <!-- <div class="container-fluid"> -->
   <div class="card">
     <div class="header">
       <h3 style="color: #4D2A30; font-size: 30px;">최근 수입 목록</h3>
-      <router-link to="/login" class="add-button">+</router-link>
+      <button class="add-button" @click="openCreateModal">+</button>
     </div>
     <ul>
       <li v-for="(item, index) in todoList" :key="index" class="income-item">
         <div class="left" style="color: #4D2A30; font-size: 18px;">{{ item.date.split(' ')[0] }}</div>
-        <div class="center"style="color: #4D2A30; font-size: 18px;">{{ item.title }}</div>
-        <div class="right"style="color: #4D2A30; font-size: 18px;">{{ item.money.toLocaleString() }}원</div>
+        <div class="center" style="color: #4D2A30; font-size: 18px;">{{ item.title }}</div>
+        <div class="right" style="color: #4D2A30; font-size: 18px;">{{ item.money.toLocaleString() }}원</div>
       </li>
     </ul>
   </div>
-<!-- </div> -->
+
+    <IncomeCreate :isVisible="openModal1" @close="closeCreateModal" />
+ 
+  <!-- </div> -->
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
+import IncomeCreate from '@/components/transaction/IncomeCreate.vue'
 import axios from 'axios';
 
 export default {
+  components: {IncomeCreate},
   setup() {
     let todoList = reactive([]);
 
@@ -37,11 +42,21 @@ export default {
         });
     }
 
+    const openModal1 = ref(false);
+
+    const openCreateModal = () => {
+      openModal1.value = true;
+    };
+
+    const closeCreateModal = () => {
+      openModal1.value = false;
+    };
+
     onMounted(() => {
       loadTotal();
     });
 
-    return { todoList };
+    return { todoList, openModal1, openCreateModal, closeCreateModal };
   }
 }
 </script>

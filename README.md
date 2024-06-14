@@ -10,7 +10,7 @@
   </div>
   <img src="https://github.com/imdayoung/hoju-money/assets/86220363/3526be3f-cedb-4365-96f1-4b9fd3f09095" width="200px"/>
   <h1>호주머니</h1>
-  <strong>가계부 서비스 웹 어플리케이션</strong>
+  <strong>당신의 호주머니를 간편하게 관리하는 스마트 가계부</strong>
 </div>
 
 ## 👨‍👨‍👧‍👦 팀원 소개
@@ -42,15 +42,18 @@
 </table>
 
 ## 💬 주요 기능
+### 로그인, 프로필 조회 및 수정, 설정
+#### ❗ 설정 적용되지는 않음
+<img src="https://github.com/imdayoung/hoju-money/assets/86220363/d0b10a12-cfdf-4c1a-814f-b55bfedd1267" width="600px"/>
+
 ### 수입/지출 내역 조회
-#### 날짜별 내역 조회
-#### 카테고리별 내역 조회
-#### 내역 상세 조회
-### 수입/지출 내역 추가 및 수정
-### 분석 리포트
-#### 카테고리별 리포트
-#### 수입/지출 리포트
-### 내 프로필 조회
+<img src="https://github.com/imdayoung/hoju-money/assets/86220363/2d96f8f6-68fd-475e-ae45-81c0b99fc29e" width="600px"/>
+
+### 수입/지출 내역 CRUD
+<img src="https://github.com/imdayoung/hoju-money/assets/86220363/25538e57-8da4-4b58-9cd8-79806729ce8c" width="600px"/>
+
+### 카테고리별 및 수입/지출 분석 리포트
+<img src="https://github.com/imdayoung/hoju-money/assets/86220363/7c87cbf4-8546-4555-9b83-2ca812d215b9" width="600px"/>
 
 ## ✏️ 사용 모듈 리스트
 - `axios`

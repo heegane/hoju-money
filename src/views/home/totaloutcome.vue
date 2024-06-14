@@ -11,13 +11,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, watch, watchEffect } from 'vue';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import { useMoneyInfoStore } from '@/store/asset';
 
+const props = defineProps({
+  isChange: {
+    type: Boolean,
+    required: true
+  }
+});
+
 const moneyInfoStore = useMoneyInfoStore();
-const moneyInfo = moneyInfoStore.moneyInfo;
+const moneyInfo = ref(moneyInfoStore.moneyInfo);
 
 const chart = ref(null);
 const categories = ref({});
@@ -110,6 +117,16 @@ const fetchData = async () => {
         console.error('Error fetching data:', error);
     }
 };
+
+watchEffect(() => {
+  fetchData();
+});
+
+watch(() => props.isChange, (newVal) => {
+  if (newVal) {
+    fetchData();
+  }
+}, { immediate: true });
 
 onMounted(() => {
     fetchData();

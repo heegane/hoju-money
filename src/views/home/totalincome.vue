@@ -11,13 +11,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, watchEffect } from 'vue';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import { useMoneyInfoStore } from '@/store/asset';
 
+const props = defineProps({
+  isChange: {
+    type: Boolean,
+    required: true
+  }
+});
+
 const moneyInfoStore = useMoneyInfoStore();
-const moneyInfo = moneyInfoStore.moneyInfo;
+const moneyInfo = ref(moneyInfoStore.moneyInfo);
 
 const chart = ref(null);
 const categories = ref({});
@@ -28,10 +35,11 @@ const getCurrentMonth = () => {
     return months[new Date().getMonth()];
 };
 
-// Chart.js의 모든 요소를 등록
-Chart.register(...registerables);
+
 
 const fetchData = async () => {
+  // Chart.js의 모든 요소를 등록
+    Chart.register(...registerables);
     try {
         const [comesResponse, categoriesResponse] = await Promise.all([
             axios.get('http://localhost:3001/comes'),
@@ -110,6 +118,16 @@ const fetchData = async () => {
         console.error('Error fetching data:', error);
     }
 };
+
+watchEffect(() => {
+  fetchData();
+});
+
+watch(() => props.isChange, (newVal) => {
+  if (newVal) {
+    fetchData();
+  }
+}, { immediate: true });
 
 onMounted(() => {
     fetchData();

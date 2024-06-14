@@ -13,10 +13,33 @@
 </template>
 
 <script setup>
+import { ref, watch, watchEffect } from 'vue';
 import { useMoneyInfoStore } from '@/store/asset';
 
+const props = defineProps({
+  isChange: {
+    type: Boolean,
+    required: true
+  }
+});
+
 const moneyInfoStore = useMoneyInfoStore();
-const moneyInfo = moneyInfoStore.moneyInfo;
+const moneyInfo = ref(moneyInfoStore.moneyInfo);
+
+const loadData =async () => {
+  await moneyInfoStore.loadTotal();
+  moneyInfo.value = { ...moneyInfoStore.moneyInfo };
+};
+
+watchEffect(() => {
+  loadData();
+});
+
+watch(() => props.isChange, (newVal) => {
+  if (newVal) {
+    loadData();
+  }
+}, { immediate: true });
 </script>
 
 <style scoped>

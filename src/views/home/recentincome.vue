@@ -23,7 +23,9 @@ import axios from 'axios';
 export default {
   components: {IncomeCreate},
   
-  setup() {
+  setup(props, { emit }) {
+    const isChange = ref(false);
+
     const useHistory = reactive([]);
 
     const loadTotal = () => {
@@ -43,6 +45,7 @@ export default {
 
     const openCreateModal = () => {
       openModal1.value = true;
+      isChange.value = false;
     };
 
     const closeCreateModal = () => {
@@ -50,14 +53,17 @@ export default {
     };
 
     const refreshData = () => {
+      isChange.value = true;
+      emit('send-is-change', isChange.value);
       loadTotal();
     };
 
     onMounted(() => {
+      isChange.value = false;
       loadTotal();
     });
 
-    return { useHistory, openModal1, openCreateModal, closeCreateModal, refreshData };
+    return { isChange, useHistory, openModal1, openCreateModal, closeCreateModal, refreshData };
   }
 }
 </script>

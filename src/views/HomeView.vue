@@ -1,19 +1,19 @@
 <template>
-<div class="container py-5">
-  <UserDetailComponent :isVisible="openModal" @close="closeModal" />
-  <div class="flex-div" @click="openUserProfile">
-    <profile />
+  <div class="container py-5">
+    <UserDetailComponent :isVisible="openModal" @close="closeModal" />
+    <div class="flex-div" @click="openUserProfile">
+      <profile :is-change="isChange" />
+    </div>
+    <div class="flex-div">
+      <totalincome :is-change="isChange" />
+      <totaloutcome :is-change="isChange" />
+      <netProceed :is-change="isChange" />
+    </div>
+    <div class="flex-div">
+      <recentincome @send-is-change="changeData" />
+      <recentoutcome @send-is-change="changeData" />
+    </div>
   </div>
-  <div class="flex-div">
-    <totalincome />
-    <totaloutcome />
-    <netProceed />
-  </div>
-  <div class="flex-div">
-    <recentincome />
-    <recentoutcome />
-  </div>
-</div>
 </template>
 
 <script setup>
@@ -28,6 +28,13 @@ import UserDetailComponent from '@/components/userdetail/UserDetailComponent.vue
 import { useUserInfoStore } from '@/store/user';
 import { useMoneyInfoStore } from '@/store/asset';
 import { onMounted, ref } from 'vue';
+
+const isChange = ref(false);
+
+const changeData = (is) => {
+  isChange.value = is;
+  console.log("isChange : ", isChange.value)
+}
 
 const userInfoStore = useUserInfoStore();
 const userInfo = userInfoStore.userInfo;

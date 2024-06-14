@@ -1,9 +1,9 @@
 <template>
-<div class="mt-5 mx-5 px-5" style="background-color: white; padding-top: 40px; padding-bottom: 40px;">
-    <div class="mb-5">
-        <span class="fs-2">앱 데이터 설정</span>
-    </div>
-    <div>
+<div class="container card my-5" style="width: 60%; border-radius: 16px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div style="margin: 20px; padding: 10px;">
+        <div class="mb-5">
+            <span class="fs-2 fw-bold" style="color: #4D2A30">앱 데이터 설정</span>
+        </div>
         <div class="d-flex justify-content-between">
             <span class="fs-5">알림</span>
             <Toggle v-model="alarm" @update:modelValue="updateAlarm"/>

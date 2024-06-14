@@ -1,16 +1,16 @@
 <template>
-    <div class="report-container">
+    <div class="container card my-5 report-container">
         <div class="title-container">
-            <h3 style="color: #4D2A30;">수입/지출 리포트</h3>
+            <span class="font-brown fs-2 fw-bold">수입/지출 리포트</span>
             <div class="date-selector">
-                <label for="year">년도: </label>
                 <select id="year" v-model="selectedYear">
                     <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
                 </select>
-                <label for="month">월: </label>
+                <label for="year" class="font-brown fw-bold">년 </label>
                 <select id="month" v-model="selectedMonth">
                     <option v-for="month in availableMonths" :key="month" :value="month">{{ month }}</option>
                 </select>
+                <label for="month" class="font-brown fw-bold">월</label>
             </div>
         </div>
         <div class="chart-container">
@@ -152,12 +152,14 @@ export default {
 </script>
 
 <style scoped>
-.report-container {
-    background-color: white;
-    margin: 20px;
-    padding: 10px;
+.font-brown {
+  color: #4D2A30;
 }
 
+.report-container {
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 .title-container {
     margin: 20px;
     padding: 10px;

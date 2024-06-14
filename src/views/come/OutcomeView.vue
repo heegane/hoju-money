@@ -1,11 +1,11 @@
 <template lang="">
-  <div class="container view-box mt-5">
-    <div class="monpick-div" v-if="dateType == 0 && month">
-      <button class="btn" type="button" @click="prevMonth()">&lt;</button>
-      <h1>{{month.getFullYear()}}년 {{month.getMonth()+1}}월</h1>
-      <button class="btn" type="button" @click="nextMonth()">&gt;</button>
+  <div class="container card view-box mt-5">
+    <div class="monpick-div mb-3" v-if="dateType == 0 && month">
+      <button class="btn" type="button" @click="prevMonth()"><font-awesome-icon icon="fa-solid fa-chevron-left" /></button>
+      <span class="fs-2 font-brown fw-bold"> {{month.getFullYear()}}년 {{month.getMonth()+1}}월 </span>
+        <button class="btn" type="button" @click="nextMonth()"><font-awesome-icon icon="fa-solid fa-chevron-right" /></button>
     </div>
-    <div class="select-div">
+    <div class="select-div mx-0">
       <div class="date-div">
         <div>
           <select
@@ -65,39 +65,39 @@
           </option>
         </select>
       </div>
+      <div class="d-flex justify-content-end" style="width: 60%">
+        <button type="button" class="btn btn-brown" @click="openCreateModal">추가</button>
+      </div>
     </div>
-    <div class="btn-div mt-3">
-      <button type="button" class="btn btn-primary" @click="openCreateModal">Create</button>
-    </div>
-    <div class="list-div mt-2">
+    <div class="list-div mt-2 d-flex justify-content-center">
       <table class="table">
         <thead>
           <tr>
-            <th>날짜</th>
-            <th>분류</th>
-            <th>내역</th>
-            <th>금액</th>
-            <th>결제 수단</th>
+            <th class="text-center">날짜</th>
+            <th class="text-center">분류</th>
+            <th class="text-center">내역</th>
+            <th class="text-center">금액</th>
+            <th class="text-center">결제 수단</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="outcome in pageData" @click="openDetailModal(outcome.id)">
-            <td>{{outcome.date.split(" ")[0]}}</td>
-            <td>
+            <td class="text-center">{{outcome.date.split(" ")[0]}}</td>
+            <td class="text-center">
               {{categoriesStore.categoryList[outcome.category_id-7].typename}}
             </td>
-            <td>{{outcome.title}}</td>
-            <td>{{outcome.money}} 원</td>
-            <td>{{outcome.method}}</td>
+            <td class="text-start">{{outcome.title}}</td>
+            <td class="text-start">{{outcome.money}} 원</td>
+            <td class="text-start">{{outcome.method}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="page-nation-div">
+    <div class="pagenation-div mt-3">
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="javascript:void(0);" @click="onPrevPage()"
-            >&lt;</a
+          ><font-awesome-icon icon="fa-solid fa-chevron-left" /></a
           >
         </li>
         <li
@@ -110,7 +110,7 @@
         </li>
         <li class="page-item">
           <a class="page-link" href="javascript:void(0);" @click="onNextPage()"
-            >&gt;</a
+          ><font-awesome-icon icon="fa-solid fa-chevron-right" /></a
           >
         </li>
       </ul>
@@ -381,35 +381,68 @@ export default {
 }
 </script>
 <style scoped>
+.btn-brown {
+  background-color: #4D2A30;
+  color: white;
+}
+.font-brown {
+  color: #4D2A30;
+}
 .view-box {
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 32px;
+  padding : 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 700px;
 }
 
-.picker-div,
-.period-div,
-.date-div,
-.select-div,
-.category-div {
+.picker-div, .period-div, .select-div, .date-div, .category-div {
   display: flex;
   align-items: center;
-  margin-left: 16px;
+  margin-left :16px;
 }
-
 .monpick-div {
   display: flex;
   justify-content: center;
 }
 
 .btn-div {
-  float: right;
+  float : right;
+}
+
+.page-link {
+  background-color: white;
+  color: #4D2A30;
 }
 
 .page-item.active .page-link {
-  background-color: #2B8EC8;
-  border-color: #2B8EC8;
-  font-weight: bold;
-  z-index: 0;
+    background-color: #4D2A30;
+    border-color: #4D2A30;
+    font-weight: bold;
+    z-index : 0;
+}
+
+.table {
+  width: 90%;
+}
+
+.table th:first-child, .table td:first-child {
+  width: 15%; /* 첫 번째 열의 너비를 20%로 설정 */
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+  width: 20%; /* 두 번째 열의 너비를 20%로 설정 */
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+  width: 30%; /* 세 번째 열의 너비를 30%로 설정 */
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+  width: 15%; /* 네 번째 열의 너비를 15%로 설정 */
+}
+
+.table th:nth-child(5), .table td:nth-child(5) {
+  width: 20%; /* 다섯 번째 열의 너비를 15%로 설정 */
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
 <div class="card">
     <div>
-        <div class="font-brown fs-4 fw-bolder">총 수입</div>
+        <div class="font-brown fs-4 fw-bolder">이번 달 수입</div>
         <div class="font-brown fs-5">{{moneyInfo.incomeMoney.toLocaleString()}}원</div>
     </div>
     <div class="chart-container">

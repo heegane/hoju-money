@@ -162,6 +162,7 @@ export default {
 .report-container {
     border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0px
 }
 
 .title-container {
@@ -186,7 +187,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 65vh;
+    height: 60vh;
     margin: 10px 10px 40px 10px;
 }
 </style>

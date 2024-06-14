@@ -65,9 +65,9 @@
           </option>
         </select>
       </div>
-    </div>
-    <div class="d-flex justify-content-end mt-3">
-      <button type="button" class="btn btn-brown" @click="openCreateModal">추가</button>
+      <div class="d-flex justify-content-end" style="width: 60%">
+        <button type="button" class="btn btn-brown" @click="openCreateModal">추가</button>
+      </div>
     </div>
     <div class="list-div mt-2 d-flex justify-content-center">
       <table class="table">
@@ -93,7 +93,7 @@
         </tbody>
       </table>
     </div>
-    <div class="pagenation-div mt-5">
+    <div class="pagenation-div mt-3">
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="javascript:void(0);" @click="onPrevPage()"
@@ -393,7 +393,7 @@ export default {
   border-radius: 16px;
   padding : 32px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 800px;
+  height: 700px;
 }
 
 .picker-div, .period-div, .select-div, .date-div, .category-div {

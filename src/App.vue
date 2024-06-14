@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import SidebarComponent from '@/components/SidebarComponent.vue'
 import { onMounted } from 'vue';
 import { watchEffect } from 'vue';
-import LoginView from './views/LoginView.vue';
+import LoginView from './views/user/LoginView.vue';
 
 const route = useRoute();
 const router  = useRouter();

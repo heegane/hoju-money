@@ -17,12 +17,12 @@
 </template>
 
 <script setup>
-import profile from '@/views/home/profile.vue';
-import recentincome from '@/views/home/recentincome.vue';
-import recentoutcome from '@/views/home/recentoutcome.vue';
-import totaloutcome from '@/views/home/totaloutcome.vue';
-import totalincome from '@/views/home/totalincome.vue';
-import netProceed from '@/views/home/netProceed.vue';
+import profile from '@/components/home/profile.vue';
+import recentincome from '@/components/home/recentincome.vue';
+import recentoutcome from '@/components/home/recentoutcome.vue';
+import totaloutcome from '@/components/home/totaloutcome.vue';
+import totalincome from '@/components/home/totalincome.vue';
+import netProceed from '@/components/home/netProceed.vue';
 import UserDetailComponent from '@/components/userdetail/UserDetailComponent.vue';
 
 import { useUserInfoStore } from '@/store/user';

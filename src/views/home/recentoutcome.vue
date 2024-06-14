@@ -17,7 +17,7 @@
 
 <script>
 
-import { ref,reactive,onMounted} from 'vue';
+import { ref,reactive,onMounted, watch,watchEffect } from 'vue';
 import OutcomeCreate from '@/components/transaction/OutcomeCreate.vue'
 import axios from 'axios';
 
@@ -51,6 +51,7 @@ export default {
 
     const closeCreateModal = () => {
       openModal1.value = false;
+      isChange.value = false;
     };
 
     const refreshData = () => {
@@ -63,6 +64,16 @@ export default {
       isChange.value = false;
       loadTotal();
     })
+
+    watch(isChange, (newValue) => {
+      if (newValue) {
+        emit('send-is-change', newValue);
+      }
+    });
+
+    watchEffect(() => {
+      emit('send-is-change', isChange.value);
+    });
   
     return {isChange, useHistory, openModal1, openCreateModal, closeCreateModal, refreshData};
   }

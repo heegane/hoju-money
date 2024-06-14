@@ -66,7 +66,7 @@ const fetchData = async () => {
 
         // 차트 생성
         if (chart.value) {
-            chart.value.destroy();
+            await chart.value.destroy();
         }
 
         const ctx = document.getElementById('categoryChart').getContext('2d');
@@ -94,6 +94,9 @@ const fetchData = async () => {
                         borderWidth: 1
                     }
                 },
+                animation: {
+                    duration: 0
+                },
                 cutout: '80%', // 도넛의 중심에 구멍을 남김
                 plugins: {
                     legend: {
@@ -116,6 +119,7 @@ const fetchData = async () => {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    
 };
 
 watchEffect(() => {

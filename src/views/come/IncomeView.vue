@@ -76,7 +76,7 @@
           <tr>
             <th class="text-center">날짜</th>
             <th class="text-center">분류</th>
-            <th class="text-center">사용내역</th>
+            <th class="text-center">수입 내역</th>
             <th class="text-center">금액</th>
             <th class="text-center">결제 수단</th>
           </tr>

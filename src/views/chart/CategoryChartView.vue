@@ -54,7 +54,7 @@ export default {
 
         // 차트 생성 함수
         const createChart = (labels, counts) => {
-            if (chart.value) {
+                if (chart.value) {
                 chart.value.destroy();
             }
             const ctx = document.getElementById('categoryChart').getContext('2d');
@@ -83,6 +83,9 @@ export default {
                             borderWidth: 1
                         }
                     },
+                    animation: {
+                        duration: 0
+                    },
                     plugins: {
                         legend: {
                             position: 'right', // 라벨을 도넛 오른쪽에 위치
@@ -103,6 +106,7 @@ export default {
                     }
                 }
             });
+            
         };
 
         const fetchData = async () => {

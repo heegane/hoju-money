@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, watchEffect } from 'vue';
+import { ref, onMounted, watch, watchEffect,onBeforeUnmount } from 'vue';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import { useMoneyInfoStore } from '@/store/asset';
@@ -71,6 +71,7 @@ const fetchData = async () => {
         }
 
         const ctx = document.getElementById('categoryChart2').getContext('2d');
+        
         chart.value = new Chart(ctx, {
             type: 'doughnut', // 도넛 그래프로 변경
             data: {
@@ -94,6 +95,9 @@ const fetchData = async () => {
                     arc: {
                         borderWidth: 1
                     }
+                },
+                animation: {
+                    duration: 0
                 },
                 cutout: '80%', // 도넛의 중심에 구멍을 남김
                 plugins: {
@@ -123,7 +127,7 @@ watchEffect(() => {
   fetchData();
 });
 
-watch(() => props.isChange, (newVal) => {
+watch(() => [props.isChange], (newVal) => {
   if (newVal) {
     fetchData();
   }
@@ -131,6 +135,13 @@ watch(() => props.isChange, (newVal) => {
 
 onMounted(() => {
     fetchData();
+});
+
+// 컴포넌트가 파기될 때 차트 제거
+onBeforeUnmount(() => {
+  if (chart.value) {
+    chart.value.destroy();
+  }
 });
 </script>
 

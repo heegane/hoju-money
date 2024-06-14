@@ -1,30 +1,48 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import SidebarComponent from '@/components/SidebarComponent.vue'
+import { onMounted } from 'vue';
+import { watchEffect } from 'vue';
+import LoginView from './views/user/LoginView.vue';
+
+const route = useRoute();
+const router  = useRouter();
+const email = ref(sessionStorage.getItem('email'));
+const showSidebar = ref(false);
+
+onMounted(() => {
+  if (!email.value) {
+    router.push({ path: '/login' });
+  } else {
+    showSidebar.value = true;
+  }
+});
+
+watchEffect(() => {
+  if (route.name == 'login') {
+    showSidebar.value = false;
+  } else {
+    showSidebar.value = true;
+  }
+})
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/login">로그인</RouterLink>
-        <RouterLink to="/home">홈</RouterLink>
-        <RouterLink to="/come/income">수입 내역</RouterLink>
-        <RouterLink to="/come/outcome">지출 내역</RouterLink>
-        <RouterLink to="/chart/category">카테고리 차트</RouterLink>
-        <RouterLink to="/chart/comes">수입/지출 차트</RouterLink>
-        <RouterLink to="/user/detail">프로필 조회</RouterLink>
-        <RouterLink to="/user/setting">설정</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <SidebarComponent v-if="showSidebar"/>
+  <LoginView v-if="!showSidebar"/>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+  
+}
+
+.viewbox {
+  background-color: #FEF9E9;
 }
 
 .logo {
